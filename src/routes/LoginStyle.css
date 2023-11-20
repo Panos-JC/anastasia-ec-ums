@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap');
+
+* {
+    font-family: 'Raleway', 'Manrope', serif;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    padding: 4rem;
+    margin: auto;
+    width: 400px;
+    height: 580px;
+    background: rgba(255, 255, 255, .7);
+    align-items: center;
+    border-radius: 25px;
+}
+
+.login-form label {
+    margin-bottom: .7rem;
+    max-width: 600px;
+    font-size: 1rem;
+}
+
+.login-form input, textarea {
+    margin-bottom: 2rem;
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    background-color: #dadbd7;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    color: #000;
+}
+
+.btn {
+    font-family: 'Raleway', 'Manrope', sans-serif;
+    padding: 12px 32px;
+    margin-bottom: 1rem;
+    font-size: 1.1em;
+    background: #dadbd7;
+    color: #000;
+    border: 1px;
+    cursor: pointer;
+    border-radius: 30px;
+}
