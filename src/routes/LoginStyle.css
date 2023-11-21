@@ -34,7 +34,7 @@
 }
 
 .btn {
-    font-family: 'Raleway', 'Manrope', sans-serif;
+    /* font-family: 'Raleway', 'Manrope', sans-serif;
     padding: 12px 32px;
     margin-bottom: 1rem;
     font-size: 1.1em;
@@ -42,5 +42,5 @@
     color: #000;
     border: 1px;
     cursor: pointer;
-    border-radius: 30px;
+    border-radius: 30px; */
 }
