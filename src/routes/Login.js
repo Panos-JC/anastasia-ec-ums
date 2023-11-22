@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import './LoginStyle.css';
+import loginImage from "../images/login-back.jpg";
+import Logo from '../images/logo.png';
 
 const Login = () => {
 
@@ -36,27 +38,42 @@ const Login = () => {
     }
 
     const handleLogin = (e) => {
-        // e.preventDefault();
-    
-        alert("Clicked!!");
+        e.preventDefault();
+
+        // Search for user with credentials from input fields (this will be an object)
+        const loggedUser= users.find((user) => user.username === username && user.password === password);
+            
+        if (loggedUser) {
+          alert("Sucessful login!");
+        }
+        else {
+          alert("The credentials you provided are invalid!");
+        }
       }
 
     return (
-        <div classname="container">
-            <form className="login-form">
-                    <label>Username</label>
-                    <input type="text" name="username" value={username} onChange={handleUsernameChange} required/>
+        <div className="container">
+            <div className="left-image">
+              <img src={loginImage} id="login-image"/>
+            </div>
+            <div className="content">
+              <form className="login-form">
+                      <img src={Logo} className="login-logo" alt="logo"/>
+                      <label>Username</label>
+                      <input type="text" name="username" value={username} onChange={handleUsernameChange} required/>
 
-                    <label>Password</label>
-                    <input type="password" name="password" value={password} onChange={handlePasswordChange} required/>
+                      <label>Password</label>
+                      <input type="password" name="password" value={password} onChange={handlePasswordChange} required/>
 
-                    <button className="btn" disabled={username === "" && password === ""} onClick={handleLogin}>Login</button>
+                      <button className="btn" disabled={username === "" && password === ""} onClick={handleLogin}>Login</button>
 
-                    <div>
-                        <input type="checkbox" id="lg" name="lg-check"/>
-                        <label for="vehicle1"> Keep me logged in</label>
-                    </div>
-            </form>
+                      <div className="check">
+                          <input type="checkbox" id="lg" name="lg-check"/>
+                          <label for="lg-check"> Keep me logged in</label>
+                      </div>
+              </form>
+            </div>
+            
         </div>
     );
 };
