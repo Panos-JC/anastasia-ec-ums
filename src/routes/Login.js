@@ -8,6 +8,7 @@ const Login = () => {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [users, setUsers] = useState([]);
+  const [checked, setChecked] = useState();
 
   // Retrieve user data from API
   useEffect(() => {
@@ -34,6 +35,15 @@ const Login = () => {
     console.log(e.target.value !== "");
   };
 
+  // Handle checkbox
+  const handleCheck = (e) => {
+    if (e.target.checked) {
+      setChecked(true);
+    } else {
+      setChecked(true);
+    }
+  };
+
   const handleLogin = (e) => {
     e.preventDefault();
 
@@ -43,6 +53,16 @@ const Login = () => {
     );
 
     if (loggedUser) {
+      // Save keep me logged in in local storage
+      // If checkbox is checked
+      if (checked) {
+        // Save username, password and checkbox value as an array in Local Storage
+        localStorage.setItem(
+          "keepMeLoggedIn",
+          JSON.stringify([username, password, checked])
+        );
+      }
+
       alert("Sucessful login!");
     } else {
       alert("The credentials you provided are invalid!");
@@ -84,7 +104,12 @@ const Login = () => {
           </button>
 
           <div className="check">
-            <input type="checkbox" id="lg" name="lg-check" />
+            <input
+              type="checkbox"
+              id="lg"
+              name="lg-check"
+              onChange={handleCheck}
+            />
             <label for="lg-check"> Keep me logged in</label>
           </div>
         </form>
