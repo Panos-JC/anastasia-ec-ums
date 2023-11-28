@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "./LoginStyle.css";
 import loginImage from "../images/login-back.jpg";
 import Logo from "../images/logo.png";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   // States for username, password and users retrieved from the mock API
@@ -57,10 +58,9 @@ const Login = () => {
       // If checkbox is checked
       if (checked) {
         // Save username, password and checkbox value as an array in Local Storage
-        localStorage.setItem(
-          "keepMeLoggedIn",
-          JSON.stringify([username, password, checked])
-        );
+        localStorage.setItem("keepMeLoggedIn", true);
+        localStorage.setItem("username", username);
+        localStorage.setItem("password", password);
       }
 
       alert("Sucessful login!");
@@ -111,6 +111,12 @@ const Login = () => {
               onChange={handleCheck}
             />
             <label for="lg-check"> Keep me logged in</label>
+            <p className="signup">
+              Don't have an account? <br />
+              <u>
+                <Link to="/signup">Sign up</Link>
+              </u>
+            </p>
           </div>
         </form>
       </div>
