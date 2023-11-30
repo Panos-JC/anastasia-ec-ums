@@ -1,0 +1,121 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope&display=swap");
+
+.home-container {
+  height: 100vh;
+  width: 100%;
+  object-fit: contain;
+}
+
+.left-image {
+  transition: 0.2s;
+  width: 55%;
+  float: left;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#home-image {
+  width: 80% !important;
+  height: 100%;
+  z-index: -1;
+  object-fit: cover;
+  position: fixed;
+  filter: blur(1px);
+}
+
+.home-content {
+  transition: 0.2s;
+  width: 45%;
+  float: right;
+  background-color: #fff;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-form {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 300px;
+  border-radius: 25px;
+}
+
+.home-form h3 {
+  text-align: center;
+  margin-top: 0;
+  font-weight: bolder;
+}
+
+.home-logo {
+  max-width: 180px;
+  margin: auto;
+}
+
+.home-form label {
+  margin-bottom: 0.7rem;
+  max-width: 600px;
+  font-size: 1rem;
+  font-weight: bolder;
+}
+
+.home-form input,
+textarea {
+  margin-bottom: 0.8rem;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  font-family: "Raleway", "Nirmala UI", serif;
+  background-color: rgb(240, 240, 240, 0.5);
+  border: 2px solid #4c2580;
+  outline: none;
+  border-radius: 22px;
+  color: #000;
+}
+
+.home-form input:disabled {
+  cursor: not-allowed;
+  color: gray;
+}
+
+.home-form input,
+textarea:focus {
+  outline: none !important;
+}
+
+.btns {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-home {
+  transition: 0.2s;
+  padding: 12px 32px;
+  font-size: 1.1em;
+  font-weight: bolder;
+  background: #4c2580;
+  color: #fff;
+  border: 1px;
+  cursor: pointer;
+  border-radius: 25px;
+  margin-top: 1rem;
+  width: 120px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn-home:hover {
+  transition: 0.2s;
+  background: rgba(220, 133, 74, 0.5);
+  color: #4c2580;
+}
+
+.btn-home:disabled {
+  transition: 0.2s;
+  background: rgba(178, 178, 182, 0.5);
+  cursor: not-allowed;
+  color: #fff;
+}
