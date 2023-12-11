@@ -3,13 +3,16 @@ import Login from "./routes/Login";
 import Home from "./routes/Home";
 import { useState, useEffect } from "react";
 import Signup from "./routes/Signup";
+import { useNavigate } from "react-router-dom";
 
 function App() {
   const [savedUsername, setSavedUsername] = useState("");
   const [savedPassword, setSavedPassword] = useState("");
   const [users, setUsers] = useState([]);
-  const [directHome, setDirectHome] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
+  // Fetch data
   useEffect(() => {
     const loginAttempt = localStorage.getItem("keepMeLoggedIn");
 
@@ -28,26 +31,33 @@ function App() {
     };
 
     fetchData();
+  }, []);
 
-    // Check if user exists
+  // Redirect if user is logged in
+  useEffect(
+    () => {
+      // Check if user exists
     if (
       users.find(
         (user) =>
           user.username === savedUsername && user.password === savedPassword
       )
     ) {
-      // Set a boolean value to true in order to be redirected to home page
+      // Set loggedIn to true
+      setLoggedIn(true);
+
+      // Navigate to home page
       alert("You will be redirected to homepage because you are logged in!!");
-      setDirectHome(true);
+      navigate("\home");
     }
-  }, []);
+    }, [users]
+  )
 
   return (
     <Routes>
-      <Route index element={directHome ? <Home /> : <Login />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/home" element={<Home />} />
+      <Route index element={<Login />} />
+      <Route path="/signup" element={<Signup />} /> : 
+      <Route path="/home" element={<Home />} />  
     </Routes>
   );
 }

@@ -10,6 +10,7 @@ const Signup = () => {
   const [confPassword, setConfPassword] = useState("");
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
+  const [checked, setChecked] = useState();
 
   // Retrieve user data from API
   useEffect(() => {
@@ -24,6 +25,8 @@ const Signup = () => {
 
     fetchData();
   }, []);
+
+  //
 
   // Handle changes in inputs
   const handleUsernameChange = (e) => {
@@ -68,12 +71,31 @@ const Signup = () => {
         }
       );
 
+      // Save keep me logged in in local storage
+      // If checkbox is checked
+      if (checked) {
+        // Save username, password and checkbox value as an array in Local Storage
+        localStorage.setItem("keepMeLoggedIn", true);
+        localStorage.setItem("username", username);
+        localStorage.setItem("password", password);
+      }
+
       if (!response.ok) {
-        throw new Error("Failed to make a POST request.");
+        alert("Server unavailable. Try again later.");
+        navigate("/signup");
       } else {
         alert("Successful signup! You will be directed to the home page.");
         navigate("/home");
       }
+    }
+  };
+
+   // Handle checkbox
+   const handleCheck = (e) => {
+    if (e.target.checked) {
+      setChecked(true);
+    } else {
+      setChecked(true);
     }
   };
 
@@ -130,7 +152,7 @@ const Signup = () => {
           </button>
 
           <div className="check">
-            <input type="checkbox" id="lg" name="lg-check" />
+            <input type="checkbox" id="lg" name="lg-check" onChange={handleCheck}/>
             <label for="lg-check"> Keep me logged in</label>
           </div>
         </form>
