@@ -78,6 +78,11 @@ const Signup = () => {
         localStorage.setItem("keepMeLoggedIn", true);
         localStorage.setItem("username", username);
         localStorage.setItem("password", password);
+      } else {
+        // Save username, password and checkbox value as an array in Local Storage
+        localStorage.setItem("keepMeLoggedIn", false);
+        localStorage.setItem("username", username);
+        localStorage.setItem("password", password);
       }
 
       if (!response.ok) {

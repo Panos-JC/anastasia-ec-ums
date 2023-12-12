@@ -3,6 +3,7 @@ import "./LoginStyle.css";
 import loginImage from "../images/login-back.jpg";
 import Logo from "../images/logo.png";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   // States for username, password and users retrieved from the mock API
@@ -10,6 +11,7 @@ const Login = () => {
   const [password, setPassword] = useState();
   const [users, setUsers] = useState([]);
   const [checked, setChecked] = useState();
+  const navigate = useNavigate();
 
   // Retrieve user data from API
   useEffect(() => {
@@ -61,9 +63,15 @@ const Login = () => {
         localStorage.setItem("keepMeLoggedIn", true);
         localStorage.setItem("username", username);
         localStorage.setItem("password", password);
+      } else {
+        // Save username, password and checkbox value as an array in Local Storage
+        localStorage.setItem("keepMeLoggedIn", false);
+        localStorage.setItem("username", username);
+        localStorage.setItem("password", password);
       }
 
       alert("Sucessful login!");
+      navigate("/home");
     } else {
       alert("The credentials you provided are invalid!");
     }
