@@ -4,6 +4,7 @@ import Home from "./routes/Home";
 import { useState, useEffect } from "react";
 import Signup from "./routes/Signup";
 import { useNavigate } from "react-router-dom";
+import AdminPage from "./routes/AdminPage";
 
 function App() {
   const [savedUsername, setSavedUsername] = useState("");
@@ -51,6 +52,7 @@ function App() {
       <Route path="/login" element={<Login />} /> :
       <Route path="/signup" element={<Signup />} /> :
       <Route path="/home" element={<Home />} />
+      <Route path="/all-users" element={<AdminPage />} />
     </Routes>
   );
 }

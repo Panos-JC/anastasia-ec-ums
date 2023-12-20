@@ -2,6 +2,7 @@ import loginImage from "../images/home-back.jpg";
 import "./HomeStyle.css";
 import Logo from "../images/logo.png";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [userData, setUserData] = useState({
@@ -205,6 +206,18 @@ const Home = () => {
               Save
             </button>
           </div>
+          {userData.username === "admin" ? (
+            <p>
+              Don't want to change your info? <br />
+              Go to{" "}
+              <u>
+                <Link to="/all-users">users administration</Link>
+              </u>{" "}
+              page
+            </p>
+          ) : (
+            <></>
+          )}
         </form>
       </div>
     </div>

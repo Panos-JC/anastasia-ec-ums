@@ -35,7 +35,7 @@ const Login = () => {
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
-    console.log(e.target.value !== "");
+    console.log(e.target.value);
   };
 
   // Handle checkbox
@@ -51,6 +51,7 @@ const Login = () => {
       (user) => user.username === username && user.password === password
     );
 
+    console.log(loggedUser);
     if (loggedUser) {
       // Save keep me logged in in local storage
       // If checkbox is checked

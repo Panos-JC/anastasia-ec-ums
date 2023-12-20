@@ -1,0 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope&display=swap");
+
+* {
+  font-family: "Manrope", serif;
+}
+.home-logo {
+  max-width: 150px;
+  margin: 0 !important;
+}
+
+.admin-cont {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.admin-cont h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+table {
+  border-collapse: collapse;
+  width: 60%;
+}
+
+th,
+td {
+  text-align: center;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: rgb(123, 94, 161, 0.2);
+}
