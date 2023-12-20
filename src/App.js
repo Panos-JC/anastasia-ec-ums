@@ -9,7 +9,6 @@ function App() {
   const [savedUsername, setSavedUsername] = useState("");
   const [savedPassword, setSavedPassword] = useState("");
   const [users, setUsers] = useState([]);
-  const [loggedIn, setLoggedIn] = useState(false);
   const navigate = useNavigate();
 
   // Fetch data
@@ -34,31 +33,24 @@ function App() {
   }, []);
 
   // Redirect if user is logged in
-  useEffect(
-    () => {
-      // Check if user exists
+  useEffect(() => {
+    // Check if user exists
     if (
       users.find(
         (user) =>
           user.username === savedUsername && user.password === savedPassword
       )
     ) {
-      // Set loggedIn to true
-      setLoggedIn(true);
-
-      // Navigate to home page
-      alert("You will be redirected to homepage because you are logged in!!");
-      navigate("\home");
+      navigate("home");
     }
-    }, [users]
-  )
+  }, [users]);
 
   return (
     <Routes>
       <Route index element={<Login />} />
-      <Route path="/login" element={<Login />} /> : 
-      <Route path="/signup" element={<Signup />} /> : 
-      <Route path="/home" element={<Home />} />  
+      <Route path="/login" element={<Login />} /> :
+      <Route path="/signup" element={<Signup />} /> :
+      <Route path="/home" element={<Home />} />
     </Routes>
   );
 }

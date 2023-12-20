@@ -40,11 +40,7 @@ const Login = () => {
 
   // Handle checkbox
   const handleCheck = (e) => {
-    if (e.target.checked) {
-      setChecked(true);
-    } else {
-      setChecked(true);
-    }
+    setChecked(e.target.checked);
   };
 
   const handleLogin = (e) => {
@@ -70,7 +66,6 @@ const Login = () => {
         localStorage.setItem("password", password);
       }
 
-      alert("Sucessful login!");
       navigate("/home");
     } else {
       alert("The credentials you provided are invalid!");

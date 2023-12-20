@@ -11,6 +11,9 @@ const Signup = () => {
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
   const [checked, setChecked] = useState();
+  const [uMessage, setUmessage] = useState("");
+  const [pMessage, setPmessage] = useState("");
+  const [cMessage, setCmessage] = useState("");
 
   // Retrieve user data from API
   useEffect(() => {
@@ -31,17 +34,35 @@ const Signup = () => {
   // Handle changes in inputs
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
-    // console.log(e.target.value);
+    if (e.target.value === "") {
+      setUmessage("Username can't be empty.");
+    } else if (e.target.value === "admin") {
+      setUmessage("Username can't be admin.");
+    } else {
+      setUmessage("");
+    }
   };
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
-    // console.log(e.target.value);
+    if (e.target.value === "") {
+      setPmessage("Password can't be empty.");
+    } else if (e.target.value.length < 6) {
+      setPmessage("Password must contain at least 6 characters.");
+    } else {
+      setPmessage("");
+    }
   };
 
   const handleConfPasswordChange = (e) => {
     setConfPassword(e.target.value);
-    // console.log(e.target.value);
+    if (e.target.value === "") {
+      setCmessage("Confirm password can't be empty.");
+    } else if (e.target.value !== password) {
+      setCmessage("Password and corfirm password must match.");
+    } else {
+      setCmessage("");
+    }
   };
 
   // Sign up handler
@@ -49,9 +70,7 @@ const Signup = () => {
     e.preventDefault();
 
     // Search for user with credentials from input fields
-    const loggedUser = users.find(
-      (user) => user.username === username && user.password === password
-    );
+    const loggedUser = users.find((user) => user.username === username);
 
     if (!loggedUser) {
       // Make a post request to mock API
@@ -95,8 +114,8 @@ const Signup = () => {
     }
   };
 
-   // Handle checkbox
-   const handleCheck = (e) => {
+  // Handle checkbox
+  const handleCheck = (e) => {
     if (e.target.checked) {
       setChecked(true);
     } else {
@@ -112,6 +131,7 @@ const Signup = () => {
       <div className="signup-content">
         <form className="signup-form">
           <img src={Logo} className="login-logo" alt="logo" />
+          <p className="message">{uMessage}</p>
           <label>Username</label>
           <input
             type="text"
@@ -120,7 +140,7 @@ const Signup = () => {
             onChange={handleUsernameChange}
             required
           />
-
+          <p className="message">{pMessage}</p>
           <label>Password</label>
           <input
             type="password"
@@ -129,7 +149,7 @@ const Signup = () => {
             onChange={handlePasswordChange}
             required
           />
-
+          <p className="message">{cMessage}</p>
           <label>Confirm Password</label>
           <input
             type="password"
@@ -157,7 +177,12 @@ const Signup = () => {
           </button>
 
           <div className="check">
-            <input type="checkbox" id="lg" name="lg-check" onChange={handleCheck}/>
+            <input
+              type="checkbox"
+              id="lg"
+              name="lg-check"
+              onChange={handleCheck}
+            />
             <label for="lg-check"> Keep me logged in</label>
           </div>
         </form>

@@ -13,12 +13,8 @@ const Home = () => {
     role: "",
   });
   const [editable, setEditable] = useState(false);
-  const [savedPassword, setSavedPassword] = useState(
-    localStorage.getItem("password")
-  );
-  const [savedUsername, setSavedUsername] = useState(
-    localStorage.getItem("username")
-  );
+  const savedPassword = localStorage.getItem("password");
+  const savedUsername = localStorage.getItem("username");
 
   // Inputs
   const [passInput, setPassInput] = useState("");
