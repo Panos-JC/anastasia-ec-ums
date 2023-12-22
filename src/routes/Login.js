@@ -2,12 +2,16 @@ import { useState, useEffect } from "react";
 import "./LoginStyle.css";
 import loginImage from "../images/login-back.jpg";
 import Logo from "../images/logo.png";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   // States for username, password and users retrieved from the mock API
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [users, setUsers] = useState([]);
+  const [checked, setChecked] = useState();
+  const navigate = useNavigate();
 
   // Retrieve user data from API
   useEffect(() => {
@@ -34,6 +38,11 @@ const Login = () => {
     console.log(e.target.value !== "");
   };
 
+  // Handle checkbox
+  const handleCheck = (e) => {
+    setChecked(e.target.checked);
+  };
+
   const handleLogin = (e) => {
     e.preventDefault();
 
@@ -43,7 +52,21 @@ const Login = () => {
     );
 
     if (loggedUser) {
-      alert("Sucessful login!");
+      // Save keep me logged in in local storage
+      // If checkbox is checked
+      if (checked) {
+        // Save username, password and checkbox value as an array in Local Storage
+        localStorage.setItem("keepMeLoggedIn", true);
+        localStorage.setItem("username", username);
+        localStorage.setItem("password", password);
+      } else {
+        // Save username, password and checkbox value as an array in Local Storage
+        localStorage.setItem("keepMeLoggedIn", false);
+        localStorage.setItem("username", username);
+        localStorage.setItem("password", password);
+      }
+
+      navigate("/home");
     } else {
       alert("The credentials you provided are invalid!");
     }
@@ -84,8 +107,19 @@ const Login = () => {
           </button>
 
           <div className="check">
-            <input type="checkbox" id="lg" name="lg-check" />
+            <input
+              type="checkbox"
+              id="lg"
+              name="lg-check"
+              onChange={handleCheck}
+            />
             <label for="lg-check"> Keep me logged in</label>
+            <p className="signup">
+              Don't have an account? <br />
+              <u>
+                <Link to="/signup">Sign up</Link>
+              </u>
+            </p>
           </div>
         </form>
       </div>
