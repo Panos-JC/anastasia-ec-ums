@@ -4,8 +4,20 @@ import Logo from "../images/logo.png";
 
 const AdminPage = () => {
   const savedUsername = localStorage.getItem("username");
+
+  // Data from API
   const [users, setUsers] = useState([]);
-  const [disable, setDisable] = useState(true);
+
+  // Keep id and data of editing user
+  const [editUserId, setEditUserId] = useState(null);
+  const [editableUser, setEditableUser] = useState({
+    id: "",
+    username: "",
+    password: "",
+    fullName: "",
+    age: 0,
+    role: "",
+  });
 
   // Fetch data
   useEffect(() => {
@@ -16,7 +28,6 @@ const AdminPage = () => {
       );
       const users = await response.json();
       setUsers(users);
-      console.log(users);
     };
 
     fetchData();
@@ -33,8 +44,50 @@ const AdminPage = () => {
     window.location.reload();
   };
 
-  const handleEdit = (id) => {
-    setDisable(!disable);
+  // Method that handles edit and save
+  const handleEdit = async (id) => {
+    // Edit Mode
+    if (editUserId !== id) {
+      setEditUserId(id);
+      setEditableUser(users.find((user) => user.id === id));
+      console.log(editableUser);
+    } else {
+      // Save Mode
+      // Update API with new data
+      const response = await fetch(
+        "https://655b7080ab37729791a91da3.mockapi.io/users/users/" + id,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(editableUser),
+        }
+      );
+      setEditUserId(null);
+      window.location.reload();
+    }
+  };
+
+  // Handle Input Changes
+  const handlePassInputChange = (e) => {
+    setEditableUser({
+      ...editableUser,
+      password: e.target.value,
+      isPasswordSafe: false,
+    });
+  };
+
+  const handleNameInputChange = (e) => {
+    setEditableUser({ ...editableUser, fullName: e.target.value });
+  };
+
+  const handleAgeInputChange = (e) => {
+    setEditableUser({ ...editableUser, age: e.target.value });
+  };
+
+  const handleRoleInputChange = (e) => {
+    setEditableUser({ ...editableUser, role: e.target.value });
   };
 
   return savedUsername !== "admin" ? (
@@ -69,8 +122,11 @@ const AdminPage = () => {
               <input
                 type="password"
                 name="username"
-                value={user.password}
-                disabled={disable}
+                value={
+                  editUserId === user.id ? editableUser.password : user.password
+                }
+                disabled={editUserId !== user.id}
+                onChange={handlePassInputChange}
                 required
               />
             </td>
@@ -78,8 +134,11 @@ const AdminPage = () => {
               <input
                 type="text"
                 name="fullname"
-                value={user.fullName}
-                disabled={disable}
+                value={
+                  editUserId === user.id ? editableUser.fullName : user.fullName
+                }
+                disabled={editUserId !== user.id}
+                onChange={handleNameInputChange}
                 required
               />
             </td>
@@ -87,13 +146,19 @@ const AdminPage = () => {
               <input
                 type="number"
                 name="username"
-                value={user.age}
-                disabled={disable}
+                value={editUserId === user.id ? editableUser.age : user.age}
+                disabled={editUserId !== user.id}
+                onChange={handleAgeInputChange}
                 required
               />
             </td>
             <td>
-              <select id="role" name="roles" disabled={disable}>
+              <select
+                id="role"
+                name="roles"
+                disabled={editUserId !== user.id}
+                onChange={handleRoleInputChange}
+              >
                 <option
                   value="regular"
                   selected={user.role === "regular" ? true : false}
@@ -110,7 +175,7 @@ const AdminPage = () => {
             </td>
             <td>
               <button className="edit-btn" onClick={() => handleEdit(user.id)}>
-                {disable === true ? "Edit" : "Save"}
+                {editUserId !== user.id ? "Edit" : "Save"}
               </button>{" "}
               /{" "}
               <button
