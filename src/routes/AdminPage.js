@@ -8,7 +8,23 @@ const AdminPage = () => {
   // Data from API
   const [users, setUsers] = useState([]);
 
-  // Keep id and data of editing user
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recordsPerPage, setRecordsPerPage] = useState(10);
+  const [totalPages, setTotalPages] = useState(1);
+  const recordsOptions = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+
+  // Keep records per page
+  const handleRecordOptions = (e) => {
+    setRecordsPerPage(e.target.value);
+  };
+
+  // Keep current page number
+  const handlePageChange = (e) => {
+    setCurrentPage(e.target.value);
+  };
+
+  // Keep id and data of editissng user
   const [editUserId, setEditUserId] = useState(null);
   const [editableUser, setEditableUser] = useState({
     id: "",
@@ -28,6 +44,7 @@ const AdminPage = () => {
       );
       const users = await response.json();
       setUsers(users);
+      setTotalPages(parseInt(users.length / recordsPerPage) + 1);
     };
 
     fetchData();
@@ -96,7 +113,10 @@ const AdminPage = () => {
     <div className="admin-cont">
       <img src={Logo} className="home-logo" alt="logo" />
       <h2>Users Administration</h2>
-
+      {/* <p>
+        From {currentPage * recordsPerPage - recordsPerPage} to{" "}
+        {currentPage * recordsPerPage}
+      </p> */}
       <table>
         <tr>
           <th>Username</th>
@@ -107,87 +127,121 @@ const AdminPage = () => {
           <th>Actions</th>
         </tr>
 
-        {users.map((user) => (
-          <tr key={user.id}>
-            <td>
-              <input
-                type="text"
-                name="username"
-                value={user.username}
-                disabled={true}
-                required
-              />
-            </td>
-            <td>
-              <input
-                type="password"
-                name="username"
-                value={
-                  editUserId === user.id ? editableUser.password : user.password
-                }
-                disabled={editUserId !== user.id}
-                onChange={handlePassInputChange}
-                required
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                name="fullname"
-                value={
-                  editUserId === user.id ? editableUser.fullName : user.fullName
-                }
-                disabled={editUserId !== user.id}
-                onChange={handleNameInputChange}
-                required
-              />
-            </td>
-            <td>
-              <input
-                type="number"
-                name="username"
-                value={editUserId === user.id ? editableUser.age : user.age}
-                disabled={editUserId !== user.id}
-                onChange={handleAgeInputChange}
-                required
-              />
-            </td>
-            <td>
-              <select
-                id="role"
-                name="roles"
-                disabled={editUserId !== user.id}
-                onChange={handleRoleInputChange}
-              >
-                <option
-                  value="regular"
-                  selected={user.role === "regular" ? true : false}
+        {users
+          .slice(
+            currentPage * recordsPerPage - recordsPerPage, // First user of page
+            currentPage * recordsPerPage // Last user of page
+          )
+          .map((user) => (
+            <tr key={user.id}>
+              <td>
+                <input
+                  type="text"
+                  name="username"
+                  value={user.username}
+                  disabled={true}
+                  required
+                />
+              </td>
+              <td>
+                <input
+                  type="password"
+                  name="username"
+                  value={
+                    editUserId === user.id
+                      ? editableUser.password
+                      : user.password
+                  }
+                  disabled={editUserId !== user.id}
+                  onChange={handlePassInputChange}
+                  required
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  name="fullname"
+                  value={
+                    editUserId === user.id
+                      ? editableUser.fullName
+                      : user.fullName
+                  }
+                  disabled={editUserId !== user.id}
+                  onChange={handleNameInputChange}
+                  required
+                />
+              </td>
+              <td>
+                <input
+                  type="number"
+                  name="username"
+                  value={editUserId === user.id ? editableUser.age : user.age}
+                  disabled={editUserId !== user.id}
+                  onChange={handleAgeInputChange}
+                  required
+                />
+              </td>
+              <td>
+                <select
+                  id="role"
+                  name="roles"
+                  disabled={editUserId !== user.id}
+                  onChange={handleRoleInputChange}
                 >
-                  Regular
-                </option>
-                <option
-                  value="admin"
-                  selected={user.role === "admin" ? true : false}
+                  <option
+                    value="regular"
+                    selected={user.role === "regular" ? true : false}
+                  >
+                    Regular
+                  </option>
+                  <option
+                    value="admin"
+                    selected={user.role === "admin" ? true : false}
+                  >
+                    Admin
+                  </option>
+                </select>
+              </td>
+              <td>
+                <button
+                  className="edit-btn"
+                  onClick={() => handleEdit(user.id)}
                 >
-                  Admin
-                </option>
-              </select>
-            </td>
-            <td>
-              <button className="edit-btn" onClick={() => handleEdit(user.id)}>
-                {editUserId !== user.id ? "Edit" : "Save"}
-              </button>{" "}
-              /{" "}
-              <button
-                className="delete-btn"
-                onClick={() => handleDelete(user.id)}
-              >
-                Delete
-              </button>
-            </td>
-          </tr>
-        ))}
+                  {editUserId !== user.id ? "Edit" : "Save"}
+                </button>{" "}
+                /{" "}
+                <button
+                  className="delete-btn"
+                  onClick={() => handleDelete(user.id)}
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          ))}
       </table>
+      <div className="pagination-settings">
+        <label>Records per page: </label>
+        <select onChange={handleRecordOptions}>
+          {recordsOptions.map((num) => (
+            <option key={num} value={num}>
+              {num}
+            </option>
+          ))}
+        </select>
+
+        <label>Pages:</label>
+        <select onChange={handlePageChange}>
+          {Array.from(
+            { length: parseInt(users.length / recordsPerPage) + 1 }, // Set length + 1
+            (_, num) => num + 1 // Increase by one
+          ).map((page) => (
+            <option key={page} value={page}>
+              {page}
+            </option>
+          ))}
+        </select>
+      </div>
     </div>
   );
 };
