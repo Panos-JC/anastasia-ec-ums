@@ -24,7 +24,7 @@
 
 table {
   border-collapse: collapse;
-  width: 60%;
+  width: 100%;
 }
 
 th,
@@ -34,5 +34,30 @@ td {
 }
 
 tr:nth-child(even) {
-  background-color: rgb(123, 94, 161, 0.2);
+  background-color: rgb(123, 94, 161, 0.1);
+}
+
+.pagination-settings {
+  margin-top: 1rem;
+  width: 45%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.dropdowns {
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-buttons {
+  width: 230px;
+  justify-content: space-between;
+  display: flex;
+}
+
+.table-cont {
+  max-height: 500px;
+  overflow-y: scroll;
 }
