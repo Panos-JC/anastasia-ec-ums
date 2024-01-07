@@ -37,13 +37,22 @@ function App() {
   // Redirect if user is logged in
   useEffect(() => {
     // Check if user exists
-    if (
-      users.find(
-        (user) =>
-          user.username === savedUsername && user.password === savedPassword
-      )
-    ) {
-      navigate("home");
+    const user = users.find(
+      (user) =>
+        user.username === savedUsername && user.password === savedPassword
+    );
+
+    // If user exists and password is safe go to home
+    if (user) {
+      if (user.isPasswordSafe) {
+        navigate("home");
+      } else {
+        // Else redirect user to change password
+        alert(
+          "Your password is unsafe. You will be redirected to a page in order to change it."
+        );
+        navigate("/change-password");
+      }
     }
   }, [users]);
 

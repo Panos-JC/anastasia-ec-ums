@@ -21,7 +21,7 @@ const Login = () => {
       );
       const users = await response.json();
       setUsers(users);
-      console.log(users);
+      // console.log(users);
     };
 
     fetchData();
@@ -30,12 +30,10 @@ const Login = () => {
   // Handle changes in inputs
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
-    console.log(e.target.value);
   };
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
-    console.log(e.target.value);
   };
 
   // Handle checkbox
@@ -67,7 +65,15 @@ const Login = () => {
         localStorage.setItem("password", password);
       }
 
-      navigate("/home");
+      // Redirect user to change password if password is unsafe
+      if (loggedUser.isPasswordSafe === false) {
+        alert(
+          "Your password is unsafe. You will be redirected to a page in order to change it."
+        );
+        navigate("/change-password");
+      } else {
+        navigate("/home");
+      }
     } else {
       alert("The credentials you provided are invalid!");
     }
