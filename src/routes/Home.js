@@ -3,6 +3,7 @@ import "./HomeStyle.css";
 import Logo from "../images/logo.png";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { editUserWithId, getUserByNamePassword } from "../services/users";
 
 const Home = () => {
   const [userData, setUserData] = useState({
@@ -29,31 +30,13 @@ const Home = () => {
     role: "",
   });
 
-  // Retrieve user data from API
+  // Retrieve user with saved username and password from API
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(
-        "https://655b7080ab37729791a91da3.mockapi.io/users/users"
-      );
-      const user = await response.json();
-
-      // Find logged in user from saved credentials
-      setUserData(
-        user.find(
-          (user) =>
-            user.username === savedUsername && user.password === savedPassword
-        )
-      );
-
-      // console.log(userData);
-      setBackup(
-        user.find(
-          (user) =>
-            user.username === savedUsername && user.password === savedPassword
-        )
-      );
-
-      console.log(userData);
+      const user = await getUserByNamePassword(savedUsername, savedPassword);
+      setUserData(user);
+      setBackup(user);
+      setPassInput(userData.password);
     };
 
     fetchData();
@@ -99,19 +82,12 @@ const Home = () => {
   const handleSave = async (e) => {
     console.log(userData);
     
-    if (passInput !== passConfInput) {
+    // Make sure that password and confirm password fields match
+    if (passInput != passConfInput) {
       alert("Password and confirm password fields must match!")
     } else {
-        const response = await fetch(
-          "https://655b7080ab37729791a91da3.mockapi.io/users/users/" + userData.id,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(userData),
-          }
-      );
+      // Edit user info 
+      await editUserWithId(userData.id, userData);
       setEditable(editable);
       }
   };

@@ -4,6 +4,7 @@ import loginImage from "../images/login-back.jpg";
 import Logo from "../images/logo.png";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { getAllUsers } from "../services/users";
 
 const Login = () => {
   // States for username, password and users retrieved from the mock API
@@ -16,12 +17,8 @@ const Login = () => {
   // Retrieve user data from API
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(
-        "https://655b7080ab37729791a91da3.mockapi.io/users/users"
-      );
-      const users = await response.json();
+      const users = await getAllUsers();
       setUsers(users);
-      // console.log(users);
     };
 
     fetchData();

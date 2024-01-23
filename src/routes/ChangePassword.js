@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./ChangePasswordStyle.css";
 import signupImage from "../images/signup-back.jpg";
 import Logo from "../images/logo.png";
+import { changeUserPass, getUserByNamePassword } from "../services/users";
 
 
 const ChangePassword = () => {
@@ -20,34 +21,22 @@ const ChangePassword = () => {
   const [newPmes, setNewPmes] = useState("");
   const [confPmes, setConfPmes] = useState("");
 
+  const savedPassword = localStorage.getItem("password");
+  const savedUsername = localStorage.getItem("username");
+
   // Fetch data
   useEffect(() => {
-    // Retrieve user data from API
+    // Retrieve user with saved username and password from API
     const fetchData = async () => {
-      const response = await fetch(
-        "https://655b7080ab37729791a91da3.mockapi.io/users/users"
-      );
-      const users = await response.json();
+      const user = await getUserByNamePassword(savedUsername, savedPassword);
 
       // A user with a safe password cannot view change password page
-      if (
-        users.find(
-          (user) =>
-            user.username === localStorage.getItem("username") &&
-            user.password === localStorage.getItem("password")
-        ).isPasswordSafe
-      ) {
+      if (user.isPasswordSafe) {
         // If a user has a safe password redirect him to home
         navigate("/home");
       }
 
-      setUser(
-        users.find(
-          (user) =>
-            user.username === localStorage.getItem("username") &&
-            user.password === localStorage.getItem("password")
-        )
-      );
+      setUser(user);
     };
     fetchData();
   }, []);
@@ -90,26 +79,14 @@ const ChangePassword = () => {
   const handleChangePass = async (e) => {
     // Change password - make put request to API
     e.preventDefault();
-
-    const response = await fetch(
-      "https://655b7080ab37729791a91da3.mockapi.io/users/users/" + user.id,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...user,
-          isPasswordSafe: true,
-          password: newPass,
-        }),
-      }
-    );
+    await changeUserPass(user.id, user, newPass);
 
     // Change password to local storage as well
     localStorage.setItem("password", newPass);
 
+    // Notify user
     alert("Your password was succesfully updated!");
+    
     // Redirect to home
     navigate("/home");
   };

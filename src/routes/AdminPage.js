@@ -1,6 +1,7 @@
 import "./AdminPageStyle.css";
 import { useState, useEffect } from "react";
 import Logo from "../images/logo.png";
+import { deleteUserWithId, getAllUsers, updateUserFromAdmin } from "../services/users";
 
 const AdminPage = () => {
   const savedUsername = localStorage.getItem("username");
@@ -59,11 +60,8 @@ const AdminPage = () => {
   useEffect(() => {
     // Retrieve user data from API
     const fetchData = async () => {
-      const response = await fetch(
-        "https://655b7080ab37729791a91da3.mockapi.io/users/users"
-      );
-      const users = await response.json();
-      setUsers(users);
+      const users = await getAllUsers();
+      setUsers(users)
 
       // Find total pages
       if (users.length % recordsPerPage === 0) {
@@ -79,14 +77,17 @@ const AdminPage = () => {
   }, []);
 
   // Method that deletes a user from api
-  const handleDelete = async (id) => {
-    const response = await fetch(
-      "https://655b7080ab37729791a91da3.mockapi.io/users/users/" + id,
-      {
-        method: "DELETE",
-      }
-    );
-    
+  const handleDelete = async (id, username) => {
+
+    // An admin cannot delete his admin account
+    if (savedUsername === username) {
+      alert("You can't delete your account!");
+      return;
+    }
+
+    // Delete user with given id
+    await deleteUserWithId(id);
+      
     // Remove deleted user from users (instead of refreshing)
     setUsers(users.filter(user => user.id != id))
   };
@@ -99,18 +100,9 @@ const AdminPage = () => {
       setEditableUser(users.find((user) => user.id === id));
       // console.log(editableUser);
     } else {
-      // Save Mode
-      // Update API with new data
-      const response = await fetch(
-        "https://655b7080ab37729791a91da3.mockapi.io/users/users/" + id,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(editableUser),
-        }
-      );
+    
+      // Update user data
+      await updateUserFromAdmin(id, editableUser);
       
       // Update users (instead of reloading the page)
       setUsers((prevUsers) =>
@@ -250,7 +242,7 @@ const AdminPage = () => {
                   /{" "}
                   <button
                     className="delete-btn"
-                    onClick={() => handleDelete(user.id)}
+                    onClick={() => handleDelete(user.id, user.username)}
                   >
                     Delete
                   </button>

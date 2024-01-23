@@ -3,6 +3,7 @@ import Logo from "../images/logo.png";
 import "./SignupStyle.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { addNewUser, getAllUsers } from "../services/users";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -18,18 +19,12 @@ const Signup = () => {
   // Retrieve user data from API
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(
-        "https://655b7080ab37729791a91da3.mockapi.io/users/users"
-      );
-      const users = await response.json();
+      const users = await getAllUsers();
       setUsers(users);
-      console.log(users);
     };
 
     fetchData();
   }, []);
-
-  //
 
   // Handle changes in inputs
   const handleUsernameChange = (e) => {
@@ -74,21 +69,7 @@ const Signup = () => {
 
     if (!loggedUser) {
       // Make a post request to mock API
-      const response = await fetch(
-        "https://655b7080ab37729791a91da3.mockapi.io/users/users",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username,
-            password,
-            role: "regular",
-            isPasswordSafe: true,
-          }),
-        }
-      );
+      const response = await addNewUser(username, password);
 
       // Save keep me logged in in local storage
       // If checkbox is checked

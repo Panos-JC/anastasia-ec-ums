@@ -6,6 +6,7 @@ import Signup from "./routes/Signup";
 import { useNavigate } from "react-router-dom";
 import AdminPage from "./routes/AdminPage";
 import ChangePass from "./routes/ChangePassword.js";
+import { getAllUsers } from "./services/users";
 
 function App() {
   const [savedUsername, setSavedUsername] = useState("");
@@ -24,10 +25,7 @@ function App() {
 
     // Retrieve user data from API
     const fetchData = async () => {
-      const response = await fetch(
-        "https://655b7080ab37729791a91da3.mockapi.io/users/users"
-      );
-      const users = await response.json();
+      const users = await getAllUsers();
       setUsers(users);
     };
 
