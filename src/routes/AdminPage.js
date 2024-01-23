@@ -86,7 +86,9 @@ const AdminPage = () => {
         method: "DELETE",
       }
     );
-    window.location.reload();
+    
+    // Remove deleted user from users (instead of refreshing)
+    setUsers(users.filter(user => user.id != id))
   };
 
   // Method that handles edit and save
@@ -95,7 +97,7 @@ const AdminPage = () => {
     if (editUserId !== id) {
       setEditUserId(id);
       setEditableUser(users.find((user) => user.id === id));
-      console.log(editableUser);
+      // console.log(editableUser);
     } else {
       // Save Mode
       // Update API with new data
@@ -109,8 +111,15 @@ const AdminPage = () => {
           body: JSON.stringify(editableUser),
         }
       );
+      
+      // Update users (instead of reloading the page)
+      setUsers((prevUsers) =>
+        prevUsers.map((user) =>
+          user.id === id ? { ...user, ...editableUser } : user
+        )
+      );
+
       setEditUserId(null);
-      window.location.reload();
     }
   };
 
@@ -139,7 +148,7 @@ const AdminPage = () => {
     <h1>You are unauthorized to view this page.</h1>
   ) : (
     <div className="admin-cont">
-      <img src={Logo} className="home-logo" alt="logo" />
+      <img src={Logo} className="admin-logo" alt="logo" />
       <h2>Users Administration</h2>
       {/* <p>
         From {currentPage * recordsPerPage - recordsPerPage} to{" "}

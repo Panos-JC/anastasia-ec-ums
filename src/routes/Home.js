@@ -20,8 +20,6 @@ const Home = () => {
   // Inputs
   const [passInput, setPassInput] = useState("");
   const [passConfInput, setPassConfInput] = useState("");
-  const [nameInput, setNameInput] = useState("");
-  const [ageInput, setAgeInput] = useState(0);
   const [backup, setBackup] = useState({
     id: "",
     username: "",
@@ -90,33 +88,32 @@ const Home = () => {
   };
 
   const handleNameInputChange = (e) => {
-    setNameInput(e.target.value);
     setUserData({ ...userData, fullName: e.target.value });
   };
 
   const handleAgeInputChange = (e) => {
-    setAgeInput(e.target.value);
     setUserData({ ...userData, age: e.target.value });
   };
 
   // Handle save button
   const handleSave = async (e) => {
     console.log(userData);
-    // if (userData.password !== passConfInput) {
-    //   alert("Password is not the same!");
-    // } else {
-    const response = await fetch(
-      "https://655b7080ab37729791a91da3.mockapi.io/users/users/" + userData.id,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
+    
+    if (passInput !== passConfInput) {
+      alert("Password and confirm password fields must match!")
+    } else {
+        const response = await fetch(
+          "https://655b7080ab37729791a91da3.mockapi.io/users/users/" + userData.id,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userData),
+          }
+      );
+      setEditable(editable);
       }
-    );
-    setEditable(editable);
-    // }
   };
 
   return (
@@ -215,9 +212,7 @@ const Home = () => {
               </u>{" "}
               page
             </p>
-          ) : (
-            <></>
-          )}
+          ) : null}
         </form>
       </div>
     </div>

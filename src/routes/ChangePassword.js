@@ -106,9 +106,12 @@ const ChangePassword = () => {
       }
     );
 
+    // Change password to local storage as well
+    localStorage.setItem("password", newPass);
+
     alert("Your password was succesfully updated!");
     // Redirect to home
-    // navigate("/home"); problem here
+    navigate("/home");
   };
 
   return (
