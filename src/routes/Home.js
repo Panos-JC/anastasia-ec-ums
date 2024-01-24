@@ -19,7 +19,6 @@ const Home = () => {
   const savedUsername = localStorage.getItem("username");
 
   // Inputs
-  const [passInput, setPassInput] = useState("");
   const [passConfInput, setPassConfInput] = useState("");
   const [backup, setBackup] = useState({
     id: "",
@@ -36,7 +35,6 @@ const Home = () => {
       const user = await getUserByNamePassword(savedUsername, savedPassword);
       setUserData(user);
       setBackup(user);
-      setPassInput(userData.password);
     };
 
     fetchData();
@@ -62,7 +60,6 @@ const Home = () => {
 
   // Input changes
   const handlePassInputChange = (e) => {
-    setPassInput(e.target.value);
     setUserData({ ...userData, password: e.target.value });
   };
 
@@ -80,16 +77,30 @@ const Home = () => {
 
   // Handle save button
   const handleSave = async (e) => {
-    console.log(userData);
-    
+    // Prevent default form submission
+    e.preventDefault();
+
     // Make sure that password and confirm password fields match
-    if (passInput != passConfInput) {
-      alert("Password and confirm password fields must match!")
+    if (userData.password != passConfInput) {
+      alert("Password and confirm password fields must match!");
     } else {
-      // Edit user info 
-      await editUserWithId(userData.id, userData);
-      setEditable(editable);
+      // Edit user info
+      const response = await editUserWithId(userData.id, userData);
+
+      if (response.ok) {
+        // Store username password in local storage (just in case one of them has changed)
+        localStorage.setItem("username", userData.username);
+        localStorage.setItem("password", userData.password);
+
+        // Change data inside form
+        setBackup(userData);
+
+        // 'Reset' form
+        setEditable(null);
+      } else {
+        alert("Failed to save info.");
       }
+    }
   };
 
   return (

@@ -1,7 +1,11 @@
 import "./AdminPageStyle.css";
 import { useState, useEffect } from "react";
 import Logo from "../images/logo.png";
-import { deleteUserWithId, getAllUsers, updateUserFromAdmin } from "../services/users";
+import {
+  deleteUserWithId,
+  getAllUsers,
+  updateUserFromAdmin,
+} from "../services/users";
 
 const AdminPage = () => {
   const savedUsername = localStorage.getItem("username");
@@ -61,7 +65,7 @@ const AdminPage = () => {
     // Retrieve user data from API
     const fetchData = async () => {
       const users = await getAllUsers();
-      setUsers(users)
+      setUsers(users);
 
       // Find total pages
       if (users.length % recordsPerPage === 0) {
@@ -78,7 +82,6 @@ const AdminPage = () => {
 
   // Method that deletes a user from api
   const handleDelete = async (id, username) => {
-
     // An admin cannot delete his admin account
     if (savedUsername === username) {
       alert("You can't delete your account!");
@@ -87,9 +90,9 @@ const AdminPage = () => {
 
     // Delete user with given id
     await deleteUserWithId(id);
-      
+
     // Remove deleted user from users (instead of refreshing)
-    setUsers(users.filter(user => user.id != id))
+    setUsers(users.filter((user) => user.id != id));
   };
 
   // Method that handles edit and save
@@ -100,10 +103,9 @@ const AdminPage = () => {
       setEditableUser(users.find((user) => user.id === id));
       // console.log(editableUser);
     } else {
-    
       // Update user data
       await updateUserFromAdmin(id, editableUser);
-      
+
       // Update users (instead of reloading the page)
       setUsers((prevUsers) =>
         prevUsers.map((user) =>
