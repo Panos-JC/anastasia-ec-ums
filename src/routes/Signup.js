@@ -4,6 +4,7 @@ import "./SignupStyle.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { addNewUser, getAllUsers } from "../services/users";
+import InputComponent from "../components/InputComponent";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -114,30 +115,27 @@ const Signup = () => {
           <img src={Logo} className="login-logo" alt="logo" />
           <p className="message">{uMessage}</p>
           <label>Username</label>
-          <input
-            type="text"
-            name="username"
+          <InputComponent
+            type={"text"}
+            name={"username"}
             value={username}
-            onChange={handleUsernameChange}
-            required
+            func={handleUsernameChange}
           />
           <p className="message">{pMessage}</p>
           <label>Password</label>
-          <input
-            type="password"
-            name="password"
+          <InputComponent
+            type={"password"}
+            name={"password"}
             value={password}
-            onChange={handlePasswordChange}
-            required
+            func={handlePasswordChange}
           />
           <p className="message">{cMessage}</p>
           <label>Confirm Password</label>
-          <input
-            type="password"
-            name="confPassword"
+          <InputComponent
+            type={"password"}
+            name={"confPassword"}
             value={confPassword}
-            onChange={handleConfPasswordChange}
-            required
+            func={handleConfPasswordChange}
           />
 
           <button

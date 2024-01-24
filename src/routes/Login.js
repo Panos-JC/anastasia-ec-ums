@@ -5,6 +5,7 @@ import Logo from "../images/logo.png";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { getAllUsers } from "../services/users";
+import InputComponent from "../components/InputComponent";
 
 const Login = () => {
   // States for username, password and users retrieved from the mock API
@@ -85,21 +86,19 @@ const Login = () => {
         <form className="login-form">
           <img src={Logo} className="login-logo" alt="logo" />
           <label>Username</label>
-          <input
-            type="text"
-            name="username"
+          <InputComponent
+            type={"text"}
+            name={"username"}
             value={username}
-            onChange={handleUsernameChange}
-            required
+            func={handleUsernameChange}
           />
 
           <label>Password</label>
-          <input
-            type="password"
-            name="password"
+          <InputComponent
+            type={"password"}
+            name={"password"}
             value={password}
-            onChange={handlePasswordChange}
-            required
+            func={handlePasswordChange}
           />
 
           <button

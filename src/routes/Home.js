@@ -4,6 +4,7 @@ import Logo from "../images/logo.png";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { editUserWithId, getUserByNamePassword } from "../services/users";
+import InputComponent from "../components/InputComponent";
 
 const Home = () => {
   const [userData, setUserData] = useState({
@@ -116,33 +117,30 @@ const Home = () => {
           <h3>Account Information</h3>
 
           <label>Username</label>
-          <input
-            type="text"
-            name="username"
+          <InputComponent
+            type={"text"}
+            name={"username"}
             value={userData.username}
-            disabled={true}
-            required
+            disability={true}
           />
 
           <label>Password</label>
-          <input
-            type="password"
-            name="password"
+          <InputComponent
+            type={"password"}
+            name={"password"}
             value={userData.password}
-            disabled={!editable}
-            onChange={handlePassInputChange}
-            required
+            disability={!editable}
+            func={handleConfPassInputChange}
           />
 
           {editable ? (
             <>
               <label>Confirm Password</label>
-              <input
-                type="password"
-                name="conf-password"
-                disabled={!editable}
-                onChange={handleConfPassInputChange}
-                required
+              <InputComponent
+                type={"password"}
+                name={"conf-password"}
+                disability={!editable}
+                func={handleConfPassInputChange}
               />
             </>
           ) : (
@@ -150,32 +148,29 @@ const Home = () => {
           )}
 
           <label>Fullname</label>
-          <input
-            type="text"
-            name="fullname"
+          <InputComponent
+            type={"text"}
+            name={"fullname"}
             value={userData.fullName}
-            disabled={!editable}
-            onChange={handleNameInputChange}
-            required
+            disability={!editable}
+            func={handleNameInputChange}
           />
 
           <label>Age</label>
-          <input
-            type="number"
-            name="age"
+          <InputComponent
+            type={"number"}
+            name={"age"}
             value={userData.age}
-            disabled={!editable}
-            onChange={handleAgeInputChange}
-            required
+            disability={!editable}
+            func={handleAgeInputChange}
           />
 
           <label>Role</label>
-          <input
-            type="text"
-            name="role"
+          <InputComponent
+            type={"text"}
+            name={"role"}
             value={userData.role}
-            disabled={true}
-            required
+            disability={true}
           />
 
           <div className="btns">

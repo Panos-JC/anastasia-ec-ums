@@ -4,7 +4,7 @@ import "./ChangePasswordStyle.css";
 import signupImage from "../images/signup-back.jpg";
 import Logo from "../images/logo.png";
 import { changeUserPass, getUserByNamePassword } from "../services/users";
-
+import InputComponent from "../components/InputComponent";
 
 const ChangePassword = () => {
   // User Data from API
@@ -86,7 +86,7 @@ const ChangePassword = () => {
 
     // Notify user
     alert("Your password was succesfully updated!");
-    
+
     // Redirect to home
     navigate("/home");
   };
@@ -94,59 +94,56 @@ const ChangePassword = () => {
   return (
     <>
       <div className="cp-container">
-      <div className="right-image">
-        <img src={signupImage} id="signup-image" />
-      </div>
+        <div className="right-image">
+          <img src={signupImage} id="signup-image" />
+        </div>
 
-      <div className="form-cont">
-      <form className="change-pass-form">
-      <img src={Logo} className="login-logo" alt="logo" />
-      <h3>Change your password</h3>
-      <p className="error">{oldPmes}</p>
-        <label>Old Password</label>
-        <input
-          type="password"
-          name="old-pass"
-          onChange={handleOldPass}
-          required
-        />
+        <div className="form-cont">
+          <form className="change-pass-form">
+            <img src={Logo} className="login-logo" alt="logo" />
+            <h3>Change your password</h3>
+            <p className="error">{oldPmes}</p>
+            <label>Old Password</label>
+            <InputComponent
+              type={"password"}
+              name={"old-pass"}
+              func={handleOldPass}
+            />
 
-        <p className="error">{newPmes}</p>
-        <label>New Password</label>
-        <input
-          type="password"
-          name="new-pass"
-          onChange={handleNewPass}
-          required
-        />
+            <p className="error">{newPmes}</p>
+            <label>New Password</label>
+            <InputComponent
+              type={"password"}
+              name={"new-pass"}
+              func={handleNewPass}
+            />
 
-        <p className="error">{confPmes}</p>
-        <label>Confirm New Password</label>
-        <input
-          type="password"
-          name="conf-pass"
-          onChange={handleConfPass}
-          required
-        />
+            <p className="error">{confPmes}</p>
+            <label>Confirm New Password</label>
+            <InputComponent
+              type={"password"}
+              name={"conf-pass"}
+              func={handleConfPass}
+            />
 
-        <button
-          disabled={
-            oldPass !== user.password ||
-            oldPass === "" ||
-            newPass === "" ||
-            confNewPass === "" ||
-            newPass !== confNewPass ||
-            newPass.length < 6
-            ? true
-            : false
-          }
-          onClick={handleChangePass}
-          className="btn"
-        >
-          Save
-        </button>
-      </form>
-      </div>
+            <button
+              disabled={
+                oldPass !== user.password ||
+                oldPass === "" ||
+                newPass === "" ||
+                confNewPass === "" ||
+                newPass !== confNewPass ||
+                newPass.length < 6
+                  ? true
+                  : false
+              }
+              onClick={handleChangePass}
+              className="btn"
+            >
+              Save
+            </button>
+          </form>
+        </div>
       </div>
     </>
   );
