@@ -7,6 +7,8 @@ import {
   updateUserFromAdmin,
 } from "./";
 import Logo from "../images/logo.png";
+import ButtonComponent from "../components/ButtonComponent";
+import InputComponent from "../components/InputComponent";
 
 const AdminPage = () => {
   const savedUsername = localStorage.getItem("username");
@@ -168,50 +170,46 @@ const AdminPage = () => {
             .map((user) => (
               <tr key={user.id}>
                 <td>
-                  <input
-                    type="text"
-                    name="username"
+                  <InputComponent
+                    type={"text"}
+                    name={"username"}
                     value={user.username}
-                    disabled={true}
-                    required
+                    disability={true}
                   />
                 </td>
                 <td>
-                  <input
-                    type="password"
-                    name="username"
+                  <InputComponent
+                    type={"password"}
+                    name={"password"}
                     value={
                       editUserId === user.id
                         ? editableUser.password
                         : user.password
                     }
-                    disabled={editUserId !== user.id}
-                    onChange={handlePassInputChange}
-                    required
+                    disability={editUserId !== user.id}
+                    func={handlePassInputChange}
                   />
                 </td>
                 <td>
-                  <input
-                    type="text"
-                    name="fullname"
+                  <InputComponent
+                    type={"text"}
+                    name={"fullname"}
                     value={
                       editUserId === user.id
                         ? editableUser.fullName
                         : user.fullName
                     }
-                    disabled={editUserId !== user.id}
-                    onChange={handleNameInputChange}
-                    required
+                    disability={editUserId !== user.id}
+                    func={handleNameInputChange}
                   />
                 </td>
                 <td>
-                  <input
-                    type="number"
-                    name="username"
+                  <InputComponent
+                    type={"number"}
+                    name={"age"}
                     value={editUserId === user.id ? editableUser.age : user.age}
-                    disabled={editUserId !== user.id}
-                    onChange={handleAgeInputChange}
-                    required
+                    disability={editUserId !== user.id}
+                    func={handleAgeInputChange}
                   />
                 </td>
                 <td>
@@ -236,19 +234,17 @@ const AdminPage = () => {
                   </select>
                 </td>
                 <td>
-                  <button
-                    className="edit-btn"
-                    onClick={() => handleEdit(user.id)}
-                  >
-                    {editUserId !== user.id ? "Edit" : "Save"}
-                  </button>{" "}
+                  <ButtonComponent
+                    className={"edit-btn"}
+                    func={() => handleEdit(user.id)}
+                    name={editUserId !== user.id ? "Edit" : "Save"}
+                  />{" "}
                   /{" "}
-                  <button
-                    className="delete-btn"
-                    onClick={() => handleDelete(user.id, user.username)}
-                  >
-                    Delete
-                  </button>
+                  <ButtonComponent
+                    className={"delete-btn"}
+                    func={() => handleDelete(user.id, user.username)}
+                    name={"Delete"}
+                  />
                 </td>
               </tr>
             ))}
@@ -289,24 +285,29 @@ const AdminPage = () => {
         </div>
 
         <div className="nav-buttons">
-          <button disabled={currentPage === 1} onClick={handleFirstPage}>
-            First
-          </button>
-          <button disabled={currentPage === 1} onClick={handlePrevPage}>
-            Previous
-          </button>
-          <button
-            disabled={currentPage === totalPages}
-            onClick={handleNextPage}
-          >
-            Next
-          </button>
-          <button
-            disabled={currentPage === totalPages}
-            onClick={handleLastPage}
-          >
-            Last
-          </button>
+          <ButtonComponent
+            disability={currentPage === 1}
+            func={handleFirstPage}
+            name={"First"}
+          />
+
+          <ButtonComponent
+            disability={currentPage === 1}
+            func={handlePrevPage}
+            name={"Previous"}
+          />
+
+          <ButtonComponent
+            disability={currentPage === totalPages}
+            func={handleNextPage}
+            name={"Next"}
+          />
+
+          <ButtonComponent
+            disability={currentPage === totalPages}
+            func={handleLastPage}
+            name={"Last"}
+          />
         </div>
       </div>
     </div>
