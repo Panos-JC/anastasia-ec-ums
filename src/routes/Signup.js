@@ -1,7 +1,7 @@
 import signupImage from "../images/signup-back.jpg";
 import Logo from "../images/logo.png";
 import InputComponent from "../components/InputComponent";
-
+import ButtonComponent from "../components/ButtonComponent";
 import { useState, useEffect, addNewUser, getAllUsers, useNavigate } from "./";
 import { signupStyle } from "./styles";
 
@@ -137,9 +137,9 @@ const Signup = () => {
             func={handleConfPasswordChange}
           />
 
-          <button
-            className="btn"
-            disabled={
+          <ButtonComponent
+            className={"btn"}
+            disability={
               username === "" ||
               password === "" ||
               confPassword === "" ||
@@ -149,10 +149,9 @@ const Signup = () => {
                 ? true
                 : false
             }
-            onClick={handleSignup}
-          >
-            Sign up
-          </button>
+            func={handleSignup}
+            name={"Sign up"}
+          />
 
           <div className="check">
             <input

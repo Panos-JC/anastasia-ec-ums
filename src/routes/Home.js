@@ -11,6 +11,7 @@ import {
 } from "./";
 
 import { homeStyle } from "./styles";
+import ButtonComponent from "../components/ButtonComponent";
 
 const Home = () => {
   const [userData, setUserData] = useState({
@@ -180,16 +181,18 @@ const Home = () => {
           />
 
           <div className="btns">
-            <button className="btn-home" onClick={handleEditCancel}>
-              {editable ? "Cancel" : "Edit"}
-            </button>
-            <button
-              className="btn-home"
-              disabled={!editable}
-              onClick={handleSave}
-            >
-              Save
-            </button>
+            <ButtonComponent
+              className={"btn-home"}
+              func={handleEditCancel}
+              name={editable ? "Cancel" : "Edit"}
+            />
+
+            <ButtonComponent
+              className={"btn-home"}
+              disability={!editable}
+              func={handleSave}
+              name={"Save"}
+            />
           </div>
           {userData.username === "admin" ? (
             <p>

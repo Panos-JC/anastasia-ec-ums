@@ -5,6 +5,7 @@ import InputComponent from "../components/InputComponent";
 import { Link, useState, useEffect, useNavigate, getAllUsers } from "./";
 
 import { loginStyle } from "./styles";
+import ButtonComponent from "../components/ButtonComponent";
 
 const Login = () => {
   // States for username, password and users retrieved from the mock API
@@ -100,13 +101,12 @@ const Login = () => {
             func={handlePasswordChange}
           />
 
-          <button
-            className="btn"
-            disabled={username === "" && password === ""}
-            onClick={handleLogin}
-          >
-            Login
-          </button>
+          <ButtonComponent
+            className={"btn"}
+            disability={username === "" && password === ""}
+            func={handleLogin}
+            name={"Login"}
+          />
 
           <div className="check">
             <input
