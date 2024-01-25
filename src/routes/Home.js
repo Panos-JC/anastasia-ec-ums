@@ -1,10 +1,16 @@
 import loginImage from "../images/home-back.jpg";
-import "./HomeStyle.css";
 import Logo from "../images/logo.png";
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { editUserWithId, getUserByNamePassword } from "../services/users";
 import InputComponent from "../components/InputComponent";
+
+import {
+  Link,
+  useState,
+  useEffect,
+  editUserWithId,
+  getUserByNamePassword,
+} from "./";
+
+import { homeStyle } from "./styles";
 
 const Home = () => {
   const [userData, setUserData] = useState({
