@@ -68,24 +68,6 @@
   font-weight: bolder;
 }
 
-.signup-form input,
-textarea {
-  margin-bottom: 1.5rem;
-  padding: 0.6rem 1rem;
-  font-size: 1rem;
-  font-family: "Raleway", "Nirmala UI", serif;
-  background-color: rgb(240, 240, 240, 0.5);
-  border: 2px solid #4c2580;
-  outline: none;
-  border-radius: 22px;
-  color: #000;
-}
-
-.signup-form input,
-textarea:focus {
-  outline: none !important;
-}
-
 @media screen and (max-width: 1100px) and (max-height: 1000px) {
   #signup-image {
     width: 100% !important;

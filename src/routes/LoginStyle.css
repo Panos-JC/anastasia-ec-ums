@@ -64,19 +64,6 @@
 .login-form input,
 textarea {
   margin-bottom: 2.5rem;
-  padding: 0.6rem 1rem;
-  font-size: 1rem;
-  font-family: "Raleway", "Nirmala UI", serif;
-  background-color: rgb(240, 240, 240, 0.5);
-  border: 2px solid #4c2580;
-  outline: none;
-  border-radius: 22px;
-  color: #000;
-}
-
-.login-form input,
-textarea:focus {
-  outline: none !important;
 }
 
 .check {

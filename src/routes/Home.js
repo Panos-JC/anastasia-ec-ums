@@ -134,15 +134,18 @@ const Home = () => {
             label={"Password"}
           />
 
-          {editable &
-          (
-            <InputComponent
-              type={"password"}
-              name={"conf-password"}
-              disabled={!editable}
-              onChange={handleConfPassInputChange}
-              label={"Confirm Password"}
-            />
+          {editable ? (
+            <>
+              <InputComponent
+                type={"password"}
+                name={"conf-password"}
+                disabled={!editable}
+                onChange={handleConfPassInputChange}
+                label={"Confirm Password"}
+              />
+            </>
+          ) : (
+            ""
           )}
 
           <InputComponent

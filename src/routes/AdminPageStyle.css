@@ -73,3 +73,13 @@ tr:nth-child(even) {
   background-color: initial;
   color: initial;
 }
+
+.table-cont input {
+  width: initial;
+  border-radius: initial;
+  font-size: initial;
+  padding: initial;
+  border: 0.2px solid black;
+  text-align: center;
+  margin: 0.1 rem;
+}

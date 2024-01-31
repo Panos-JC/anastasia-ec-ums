@@ -1,4 +1,5 @@
 import React from "react";
+import "./InputComponentStyle.css";
 
 const InputComponent = ({ type, name, value, disabled, onChange, label }) => {
   return (
