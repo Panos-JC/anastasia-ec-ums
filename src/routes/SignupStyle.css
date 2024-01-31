@@ -86,35 +86,6 @@ textarea:focus {
   outline: none !important;
 }
 
-.btn {
-  transition: 0.2s;
-  padding: 12px 32px;
-  font-size: 1.1em;
-  font-weight: bolder;
-  background: #4c2580;
-  color: #fff;
-  border: 1px;
-  cursor: pointer;
-  border-radius: 25px;
-  margin-bottom: 2rem;
-  width: 150px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.btn:hover {
-  transition: 0.2s;
-  background: rgba(220, 133, 74, 0.5);
-  color: #4c2580;
-}
-
-.btn:disabled {
-  transition: 0.2s;
-  background: rgba(178, 178, 182, 0.5);
-  cursor: not-allowed;
-  color: #fff;
-}
-
 @media screen and (max-width: 1100px) and (max-height: 1000px) {
   #signup-image {
     width: 100% !important;

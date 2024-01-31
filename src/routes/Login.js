@@ -103,7 +103,7 @@ const Login = () => {
 
           <ButtonComponent
             className={"btn"}
-            disability={username === "" && password === ""}
+            disabled={username === "" && password === ""}
             onClick={handleLogin}
             name={"Login"}
           />

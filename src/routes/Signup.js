@@ -143,7 +143,7 @@ const Signup = () => {
 
           <ButtonComponent
             className={"btn"}
-            disability={
+            disabled={
               username === "" ||
               password === "" ||
               confPassword === "" ||

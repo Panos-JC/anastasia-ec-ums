@@ -61,3 +61,15 @@ tr:nth-child(even) {
   max-height: 500px;
   overflow-y: scroll;
 }
+
+.edit-btn,
+.delete-btn,
+.nav-buttons button {
+  font-size: initial;
+  width: initial;
+  padding: initial;
+  border-radius: initial;
+  margin: initial;
+  background-color: initial;
+  color: initial;
+}

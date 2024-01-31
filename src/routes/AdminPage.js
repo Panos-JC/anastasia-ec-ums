@@ -284,25 +284,25 @@ const AdminPage = () => {
 
         <div className="nav-buttons">
           <ButtonComponent
-            disability={currentPage === 1}
+            disabled={currentPage === 1}
             onClick={handleFirstPage}
             name={"First"}
           />
 
           <ButtonComponent
-            disability={currentPage === 1}
+            disabled={currentPage === 1}
             onClick={handlePrevPage}
             name={"Previous"}
           />
 
           <ButtonComponent
-            disability={currentPage === totalPages}
+            disabled={currentPage === totalPages}
             onClick={handleNextPage}
             name={"Next"}
           />
 
           <ButtonComponent
-            disability={currentPage === totalPages}
+            disabled={currentPage === totalPages}
             onClick={handleLastPage}
             name={"Last"}
           />
