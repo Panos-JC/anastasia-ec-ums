@@ -113,29 +113,32 @@ const Signup = () => {
       <div className="signup-content">
         <form className="signup-form">
           <img src={Logo} className="login-logo" alt="logo" />
+
           <p className="message">{uMessage}</p>
-          <label>Username</label>
           <InputComponent
             type={"text"}
             name={"username"}
             value={username}
-            func={handleUsernameChange}
+            onChange={handleUsernameChange}
+            label={"Username"}
           />
+
           <p className="message">{pMessage}</p>
-          <label>Password</label>
           <InputComponent
             type={"password"}
             name={"password"}
             value={password}
-            func={handlePasswordChange}
+            onChange={handlePasswordChange}
+            label={"Password"}
           />
+
           <p className="message">{cMessage}</p>
-          <label>Confirm Password</label>
           <InputComponent
             type={"password"}
             name={"confPassword"}
             value={confPassword}
-            func={handleConfPasswordChange}
+            onChange={handleConfPasswordChange}
+            label={"Confirm Password"}
           />
 
           <ButtonComponent
@@ -150,7 +153,7 @@ const Signup = () => {
                 ? true
                 : false
             }
-            func={handleSignup}
+            onClick={handleSignup}
             name={"Sign up"}
           />
 

@@ -1,15 +1,18 @@
 import React from "react";
 
-const InputComponent = ({ type, name, value, disability, func }) => {
+const InputComponent = ({ type, name, value, disabled, onChange, label }) => {
   return (
-    <input
-      type={type}
-      name={name}
-      value={value}
-      disabled={disability}
-      onChange={func}
-      required
-    />
+    <>
+      <label>{label}</label>
+      <input
+        type={type}
+        name={name}
+        value={value}
+        disabled={disabled}
+        onChange={onChange}
+        required
+      />
+    </>
   );
 };
 

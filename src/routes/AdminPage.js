@@ -172,7 +172,7 @@ const AdminPage = () => {
                     type={"text"}
                     name={"username"}
                     value={user.username}
-                    disability={true}
+                    disabled={true}
                   />
                 </td>
                 <td>
@@ -184,8 +184,8 @@ const AdminPage = () => {
                         ? editableUser.password
                         : user.password
                     }
-                    disability={editUserId !== user.id}
-                    func={handlePassInputChange}
+                    disabled={editUserId !== user.id}
+                    onChange={handlePassInputChange}
                   />
                 </td>
                 <td>
@@ -197,8 +197,8 @@ const AdminPage = () => {
                         ? editableUser.fullName
                         : user.fullName
                     }
-                    disability={editUserId !== user.id}
-                    func={handleNameInputChange}
+                    disabled={editUserId !== user.id}
+                    onChange={handleNameInputChange}
                   />
                 </td>
                 <td>
@@ -206,8 +206,8 @@ const AdminPage = () => {
                     type={"number"}
                     name={"age"}
                     value={editUserId === user.id ? editableUser.age : user.age}
-                    disability={editUserId !== user.id}
-                    func={handleAgeInputChange}
+                    disabled={editUserId !== user.id}
+                    onChange={handleAgeInputChange}
                   />
                 </td>
                 <td>
@@ -234,13 +234,13 @@ const AdminPage = () => {
                 <td>
                   <ButtonComponent
                     className={"edit-btn"}
-                    func={() => handleEdit(user.id)}
+                    onClick={() => handleEdit(user.id)}
                     name={editUserId !== user.id ? "Edit" : "Save"}
                   />{" "}
                   /{" "}
                   <ButtonComponent
                     className={"delete-btn"}
-                    func={() => handleDelete(user.id, user.username)}
+                    onClick={() => handleDelete(user.id, user.username)}
                     name={"Delete"}
                   />
                 </td>
@@ -285,25 +285,25 @@ const AdminPage = () => {
         <div className="nav-buttons">
           <ButtonComponent
             disability={currentPage === 1}
-            func={handleFirstPage}
+            onClick={handleFirstPage}
             name={"First"}
           />
 
           <ButtonComponent
             disability={currentPage === 1}
-            func={handlePrevPage}
+            onClick={handlePrevPage}
             name={"Previous"}
           />
 
           <ButtonComponent
             disability={currentPage === totalPages}
-            func={handleNextPage}
+            onClick={handleNextPage}
             name={"Next"}
           />
 
           <ButtonComponent
             disability={currentPage === totalPages}
-            func={handleLastPage}
+            onClick={handleLastPage}
             name={"Last"}
           />
         </div>

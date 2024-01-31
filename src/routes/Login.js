@@ -84,26 +84,27 @@ const Login = () => {
       <div className="content">
         <form className="login-form">
           <img src={Logo} className="login-logo" alt="logo" />
-          <label>Username</label>
+
           <InputComponent
             type={"text"}
             name={"username"}
             value={username}
-            func={handleUsernameChange}
+            onChange={handleUsernameChange}
+            label={"Username"}
           />
 
-          <label>Password</label>
           <InputComponent
             type={"password"}
             name={"password"}
             value={password}
-            func={handlePasswordChange}
+            onChange={handlePasswordChange}
+            label={"Password"}
           />
 
           <ButtonComponent
             className={"btn"}
             disability={username === "" && password === ""}
-            func={handleLogin}
+            onClick={handleLogin}
             name={"Login"}
           />
 
@@ -112,7 +113,7 @@ const Login = () => {
               type="checkbox"
               id="lg"
               name="lg-check"
-              onChange={handleCheck}
+              onClick={handleCheck}
             />
             <label for="lg-check"> Keep me logged in</label>
             <p className="signup">

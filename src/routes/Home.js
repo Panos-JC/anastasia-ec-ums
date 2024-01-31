@@ -117,74 +117,71 @@ const Home = () => {
 
           <h3>Account Information</h3>
 
-          <label>Username</label>
           <InputComponent
             type={"text"}
             name={"username"}
             value={userData.username}
-            disability={true}
+            disabled={true}
+            label={"Username"}
           />
 
-          <label>Password</label>
           <InputComponent
             type={"password"}
             name={"password"}
             value={userData.password}
-            disability={!editable}
-            func={handleConfPassInputChange}
+            disabled={!editable}
+            onChange={handleConfPassInputChange}
+            label={"Password"}
           />
 
-          {editable ? (
-            <>
-              <label>Confirm Password</label>
-              <InputComponent
-                type={"password"}
-                name={"conf-password"}
-                disability={!editable}
-                func={handleConfPassInputChange}
-              />
-            </>
-          ) : (
-            ""
+          {editable &
+          (
+            <InputComponent
+              type={"password"}
+              name={"conf-password"}
+              disabled={!editable}
+              onChange={handleConfPassInputChange}
+              label={"Confirm Password"}
+            />
           )}
 
-          <label>Fullname</label>
           <InputComponent
             type={"text"}
             name={"fullname"}
             value={userData.fullName}
-            disability={!editable}
-            func={handleNameInputChange}
+            disabled={!editable}
+            onChange={handleNameInputChange}
+            label={"Fullname"}
           />
 
-          <label>Age</label>
           <InputComponent
             type={"number"}
             name={"age"}
             value={userData.age}
-            disability={!editable}
-            func={handleAgeInputChange}
+            disabled={!editable}
+            onChange={handleAgeInputChange}
+            label={"Age"}
           />
 
-          <label>Role</label>
           <InputComponent
             type={"text"}
             name={"role"}
             value={userData.role}
-            disability={true}
+            disabled={true}
+            label={"Role"}
           />
 
           <div className="btns">
             <ButtonComponent
               className={"btn-home"}
-              func={handleEditCancel}
+              onClick={handleEditCancel}
               name={editable ? "Cancel" : "Edit"}
             />
 
             <ButtonComponent
               className={"btn-home"}
-              disability={!editable}
-              func={handleSave}
+              disabled={!editable}
+              onClick={handleSave}
               name={"Save"}
             />
           </div>

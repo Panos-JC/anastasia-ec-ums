@@ -103,27 +103,28 @@ const ChangePassword = () => {
             <img src={Logo} className="login-logo" alt="logo" />
             <h3>Change your password</h3>
             <p className="error">{oldPmes}</p>
-            <label>Old Password</label>
+
             <InputComponent
               type={"password"}
               name={"old-pass"}
-              func={handleOldPass}
+              onChange={handleOldPass}
+              label={"Old Password"}
             />
 
             <p className="error">{newPmes}</p>
-            <label>New Password</label>
             <InputComponent
               type={"password"}
               name={"new-pass"}
-              func={handleNewPass}
+              onChange={handleNewPass}
+              label={"New Password"}
             />
 
             <p className="error">{confPmes}</p>
-            <label>Confirm New Password</label>
             <InputComponent
               type={"password"}
               name={"conf-pass"}
-              func={handleConfPass}
+              onChange={handleConfPass}
+              label={"Confirm New Password"}
             />
 
             <button
