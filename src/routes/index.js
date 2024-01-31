@@ -1,13 +1,7 @@
-export { useState, useEffect } from "react";
+import AdminPage from "./AdminPage";
+import ChangePassword from "./ChangePassword";
+import Home from "./Home";
+import Login from "./Login";
+import Signup from "./Signup";
 
-export { useNavigate, Link } from "react-router-dom";
-
-export {
-  getAllUsers,
-  getUserByNamePassword,
-  deleteUserWithId,
-  addNewUser,
-  editUserWithId,
-  changeUserPass,
-  updateUserFromAdmin,
-} from "../services/users";
+export { AdminPage, ChangePassword, Home, Login, Signup };

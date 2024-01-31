@@ -1,11 +1,10 @@
 import loginImage from "../images/login-back.jpg";
 import Logo from "../images/logo.png";
-import InputComponent from "../components/InputComponent";
-
-import { Link, useState, useEffect, useNavigate, getAllUsers } from "./";
-
+import { getAllUsers } from "../services/users";
+import { ButtonComponent, InputComponent } from "../components";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { loginStyle } from "./styles";
-import ButtonComponent from "../components/ButtonComponent";
 
 const Login = () => {
   // States for username, password and users retrieved from the mock API

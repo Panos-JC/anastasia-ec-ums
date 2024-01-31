@@ -1,12 +1,8 @@
 import { Routes, Route } from "react-router-dom";
-import Login from "./routes/Login";
-import Home from "./routes/Home";
 import { useState, useEffect } from "react";
-import Signup from "./routes/Signup";
 import { useNavigate } from "react-router-dom";
-import AdminPage from "./routes/AdminPage";
-import ChangePass from "./routes/ChangePassword.js";
 import { getAllUsers } from "./services/users";
+import { AdminPage, ChangePassword, Home, Login, Signup } from "./routes";
 
 function App() {
   const [savedUsername, setSavedUsername] = useState("");
@@ -61,7 +57,7 @@ function App() {
       <Route path="/signup" element={<Signup />} /> :
       <Route path="/home" element={<Home />} />
       <Route path="/all-users" element={<AdminPage />} />
-      <Route path="/change-password" element={<ChangePass />} />
+      <Route path="/change-password" element={<ChangePassword />} />
     </Routes>
   );
 }

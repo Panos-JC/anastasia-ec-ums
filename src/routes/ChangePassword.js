@@ -1,15 +1,10 @@
 import signupImage from "../images/signup-back.jpg";
 import Logo from "../images/logo.png";
-import InputComponent from "../components/InputComponent";
-
+import { InputComponent } from "../components";
+import { changeUserPass, getUserByNamePassword } from "../services/users";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { changePasswordStyle } from "./styles";
-import {
-  useState,
-  useEffect,
-  changeUserPass,
-  getUserByNamePassword,
-  useNavigate,
-} from "./";
 
 const ChangePassword = () => {
   // User Data from API

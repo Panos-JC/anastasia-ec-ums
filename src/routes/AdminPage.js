@@ -1,14 +1,12 @@
 import { adminPageStyle } from "./styles";
 import {
-  useState,
-  useEffect,
   deleteUserWithId,
   getAllUsers,
   updateUserFromAdmin,
-} from "./";
+} from "../services/users";
+import { useState, useEffect } from "react";
 import Logo from "../images/logo.png";
-import ButtonComponent from "../components/ButtonComponent";
-import InputComponent from "../components/InputComponent";
+import { ButtonComponent, InputComponent } from "../components";
 
 const AdminPage = () => {
   const savedUsername = localStorage.getItem("username");

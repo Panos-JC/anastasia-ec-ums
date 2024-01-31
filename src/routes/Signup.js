@@ -1,8 +1,9 @@
 import signupImage from "../images/signup-back.jpg";
 import Logo from "../images/logo.png";
-import InputComponent from "../components/InputComponent";
-import ButtonComponent from "../components/ButtonComponent";
-import { useState, useEffect, addNewUser, getAllUsers, useNavigate } from "./";
+import { ButtonComponent, InputComponent } from "../components";
+import { addNewUser, getAllUsers } from "../services/users";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { signupStyle } from "./styles";
 
 const Signup = () => {
