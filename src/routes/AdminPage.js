@@ -1,4 +1,4 @@
-import { adminPageStyle } from "./styles";
+import "./AdminPageStyle.css";
 import {
   deleteUserWithId,
   getAllUsers,

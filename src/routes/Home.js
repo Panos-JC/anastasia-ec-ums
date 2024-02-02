@@ -4,8 +4,7 @@ import { editUserWithId, getUserByNamePassword } from "../services/users";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { ButtonComponent, InputComponent } from "../components";
-
-import { homeStyle } from "./styles";
+import "./HomeStyle.css";
 
 const Home = () => {
   const [userData, setUserData] = useState({
@@ -130,11 +129,11 @@ const Home = () => {
             name={"password"}
             value={userData.password}
             disabled={!editable}
-            onChange={handleConfPassInputChange}
+            onChange={handlePassInputChange}
             label={"Password"}
           />
 
-          {editable ? (
+          {editable && (
             <>
               <InputComponent
                 type={"password"}
@@ -144,8 +143,6 @@ const Home = () => {
                 label={"Confirm Password"}
               />
             </>
-          ) : (
-            ""
           )}
 
           <InputComponent
@@ -188,7 +185,7 @@ const Home = () => {
               name={"Save"}
             />
           </div>
-          {userData.username === "admin" ? (
+          {userData.username === "admin" && (
             <p>
               Don't want to change your info? <br />
               Go to{" "}
@@ -197,7 +194,7 @@ const Home = () => {
               </u>{" "}
               page
             </p>
-          ) : null}
+          )}
         </form>
       </div>
     </div>

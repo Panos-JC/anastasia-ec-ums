@@ -4,7 +4,7 @@ import { ButtonComponent, InputComponent } from "../components";
 import { addNewUser, getAllUsers } from "../services/users";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { signupStyle } from "./styles";
+import "./SignupStyle.css";
 
 const Signup = () => {
   const [username, setUsername] = useState("");

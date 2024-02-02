@@ -4,7 +4,7 @@ import { getAllUsers } from "../services/users";
 import { ButtonComponent, InputComponent } from "../components";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { loginStyle } from "./styles";
+import "./LoginStyle.css";
 
 const Login = () => {
   // States for username, password and users retrieved from the mock API

@@ -4,7 +4,7 @@ import { InputComponent } from "../components";
 import { changeUserPass, getUserByNamePassword } from "../services/users";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { changePasswordStyle } from "./styles";
+import "./ChangePasswordStyle.css";
 
 const ChangePassword = () => {
   // User Data from API
