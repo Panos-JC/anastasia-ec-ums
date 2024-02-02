@@ -140,7 +140,7 @@ const AdminPage = () => {
   };
 
   return savedUsername !== "admin" ? (
-    <h1>You are unauthorized to view this page.</h1>
+    <h1 className="error-msg">Oops! You are unauthorized to view this page... :(</h1>
   ) : (
     <div className="admin-cont">
       <img src={Logo} className="admin-logo" alt="logo" />

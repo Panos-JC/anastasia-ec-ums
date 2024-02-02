@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAllUsers } from "./services/users";
 import { AdminPage, ChangePassword, Home, Login, Signup } from "./routes";
+import { NavbarComponent } from "./components";
 
 function App() {
   const [savedUsername, setSavedUsername] = useState("");
@@ -51,6 +52,8 @@ function App() {
   }, [users]);
 
   return (
+    <>
+    <NavbarComponent/>
     <Routes>
       <Route index element={<Login />} />
       <Route path="/login" element={<Login />} /> :
@@ -59,6 +62,8 @@ function App() {
       <Route path="/all-users" element={<AdminPage />} />
       <Route path="/change-password" element={<ChangePassword />} />
     </Routes>
+    </>
+    
   );
 }
 

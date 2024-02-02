@@ -34,6 +34,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 72px;
 }
 
 .home-form {
@@ -58,7 +59,7 @@
 }
 
 .home-logo {
-  max-width: 180px;
+  max-width: 140px;
   margin: auto;
 }
 

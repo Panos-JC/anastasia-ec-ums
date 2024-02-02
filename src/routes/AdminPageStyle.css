@@ -83,3 +83,12 @@ tr:nth-child(even) {
   text-align: center;
   margin: 0.1 rem;
 }
+
+.error-msg {
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+}
