@@ -1,8 +1,10 @@
 import signupImage from "../images/signup-back.jpg";
 import Logo from "../images/logo.png";
-import "./SignupStyle.css";
+import { ButtonComponent, InputComponent } from "../components";
+import { addNewUser, getAllUsers } from "../services/users";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "./SignupStyle.css";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -18,18 +20,12 @@ const Signup = () => {
   // Retrieve user data from API
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(
-        "https://655b7080ab37729791a91da3.mockapi.io/users/users"
-      );
-      const users = await response.json();
+      const users = await getAllUsers();
       setUsers(users);
-      console.log(users);
     };
 
     fetchData();
   }, []);
-
-  //
 
   // Handle changes in inputs
   const handleUsernameChange = (e) => {
@@ -74,21 +70,7 @@ const Signup = () => {
 
     if (!loggedUser) {
       // Make a post request to mock API
-      const response = await fetch(
-        "https://655b7080ab37729791a91da3.mockapi.io/users/users",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username,
-            password,
-            role: "regular",
-            isPasswordSafe: true,
-          }),
-        }
-      );
+      const response = await addNewUser(username, password);
 
       // Save keep me logged in in local storage
       // If checkbox is checked
@@ -131,36 +113,36 @@ const Signup = () => {
       <div className="signup-content">
         <form className="signup-form">
           <img src={Logo} className="login-logo" alt="logo" />
+
           <p className="message">{uMessage}</p>
-          <label>Username</label>
-          <input
-            type="text"
-            name="username"
+          <InputComponent
+            type={"text"}
+            name={"username"}
             value={username}
             onChange={handleUsernameChange}
-            required
-          />
-          <p className="message">{pMessage}</p>
-          <label>Password</label>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={handlePasswordChange}
-            required
-          />
-          <p className="message">{cMessage}</p>
-          <label>Confirm Password</label>
-          <input
-            type="password"
-            name="confPassword"
-            value={confPassword}
-            onChange={handleConfPasswordChange}
-            required
+            label={"Username"}
           />
 
-          <button
-            className="btn"
+          <p className="message">{pMessage}</p>
+          <InputComponent
+            type={"password"}
+            name={"password"}
+            value={password}
+            onChange={handlePasswordChange}
+            label={"Password"}
+          />
+
+          <p className="message">{cMessage}</p>
+          <InputComponent
+            type={"password"}
+            name={"confPassword"}
+            value={confPassword}
+            onChange={handleConfPasswordChange}
+            label={"Confirm Password"}
+          />
+
+          <ButtonComponent
+            className={"btn"}
             disabled={
               username === "" ||
               password === "" ||
@@ -172,9 +154,8 @@ const Signup = () => {
                 : false
             }
             onClick={handleSignup}
-          >
-            Sign up
-          </button>
+            name={"Sign up"}
+          />
 
           <div className="check">
             <input

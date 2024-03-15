@@ -64,48 +64,6 @@
 .login-form input,
 textarea {
   margin-bottom: 2.5rem;
-  padding: 0.6rem 1rem;
-  font-size: 1rem;
-  font-family: "Raleway", "Nirmala UI", serif;
-  background-color: rgb(240, 240, 240, 0.5);
-  border: 2px solid #4c2580;
-  outline: none;
-  border-radius: 22px;
-  color: #000;
-}
-
-.login-form input,
-textarea:focus {
-  outline: none !important;
-}
-
-.btn {
-  transition: 0.2s;
-  padding: 12px 32px;
-  font-size: 1.1em;
-  font-weight: bolder;
-  background: #4c2580;
-  color: #fff;
-  border: 1px;
-  cursor: pointer;
-  border-radius: 25px;
-  margin-bottom: 2rem;
-  width: 150px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.btn:hover {
-  transition: 0.2s;
-  background: rgba(220, 133, 74, 0.5);
-  color: #4c2580;
-}
-
-.btn:disabled {
-  transition: 0.2s;
-  background: rgba(178, 178, 182, 0.5);
-  cursor: not-allowed;
-  color: #fff;
 }
 
 .check {

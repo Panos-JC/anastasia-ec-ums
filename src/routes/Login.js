@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
-import "./LoginStyle.css";
 import loginImage from "../images/login-back.jpg";
 import Logo from "../images/logo.png";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { getAllUsers } from "../services/users";
+import { ButtonComponent, InputComponent } from "../components";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import "./LoginStyle.css";
 
 const Login = () => {
   // States for username, password and users retrieved from the mock API
@@ -16,12 +17,8 @@ const Login = () => {
   // Retrieve user data from API
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(
-        "https://655b7080ab37729791a91da3.mockapi.io/users/users"
-      );
-      const users = await response.json();
+      const users = await getAllUsers();
       setUsers(users);
-      console.log(users);
     };
 
     fetchData();
@@ -30,12 +27,10 @@ const Login = () => {
   // Handle changes in inputs
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
-    console.log(e.target.value);
   };
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
-    console.log(e.target.value !== "");
   };
 
   // Handle checkbox
@@ -51,6 +46,7 @@ const Login = () => {
       (user) => user.username === username && user.password === password
     );
 
+    console.log(loggedUser);
     if (loggedUser) {
       // Save keep me logged in in local storage
       // If checkbox is checked
@@ -66,7 +62,15 @@ const Login = () => {
         localStorage.setItem("password", password);
       }
 
-      navigate("/home");
+      // Redirect user to change password if password is unsafe
+      if (loggedUser.isPasswordSafe === false) {
+        alert(
+          "Your password is unsafe. You will be redirected to a page in order to change it."
+        );
+        navigate("/change-password");
+      } else {
+        navigate("/home");
+      }
     } else {
       alert("The credentials you provided are invalid!");
     }
@@ -80,38 +84,36 @@ const Login = () => {
       <div className="content">
         <form className="login-form">
           <img src={Logo} className="login-logo" alt="logo" />
-          <label>Username</label>
-          <input
-            type="text"
-            name="username"
+
+          <InputComponent
+            type={"text"}
+            name={"username"}
             value={username}
             onChange={handleUsernameChange}
-            required
+            label={"Username"}
           />
 
-          <label>Password</label>
-          <input
-            type="password"
-            name="password"
+          <InputComponent
+            type={"password"}
+            name={"password"}
             value={password}
             onChange={handlePasswordChange}
-            required
+            label={"Password"}
           />
 
-          <button
-            className="btn"
+          <ButtonComponent
+            className={"btn"}
             disabled={username === "" && password === ""}
             onClick={handleLogin}
-          >
-            Login
-          </button>
+            name={"Login"}
+          />
 
           <div className="check">
             <input
               type="checkbox"
               id="lg"
               name="lg-check"
-              onChange={handleCheck}
+              onClick={handleCheck}
             />
             <label for="lg-check"> Keep me logged in</label>
             <p className="signup">

@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
-import Login from "./routes/Login";
-import Home from "./routes/Home";
 import { useState, useEffect } from "react";
-import Signup from "./routes/Signup";
 import { useNavigate } from "react-router-dom";
+import { getAllUsers } from "./services/users";
+import { AdminPage, ChangePassword, Home, Login, Signup } from "./routes";
+import { NavbarComponent } from "./components";
 
 function App() {
   const [savedUsername, setSavedUsername] = useState("");
@@ -22,10 +22,7 @@ function App() {
 
     // Retrieve user data from API
     const fetchData = async () => {
-      const response = await fetch(
-        "https://655b7080ab37729791a91da3.mockapi.io/users/users"
-      );
-      const users = await response.json();
+      const users = await getAllUsers();
       setUsers(users);
     };
 
@@ -35,23 +32,38 @@ function App() {
   // Redirect if user is logged in
   useEffect(() => {
     // Check if user exists
-    if (
-      users.find(
-        (user) =>
-          user.username === savedUsername && user.password === savedPassword
-      )
-    ) {
-      navigate("home");
+    const user = users.find(
+      (user) =>
+        user.username === savedUsername && user.password === savedPassword
+    );
+
+    // If user exists and password is safe go to home
+    if (user) {
+      if (user.isPasswordSafe) {
+        navigate("home");
+      } else {
+        // Else redirect user to change password
+        alert(
+          "Your password is unsafe. You will be redirected to a page in order to change it."
+        );
+        navigate("/change-password");
+      }
     }
   }, [users]);
 
   return (
+    <>
+    <NavbarComponent/>
     <Routes>
       <Route index element={<Login />} />
       <Route path="/login" element={<Login />} /> :
       <Route path="/signup" element={<Signup />} /> :
       <Route path="/home" element={<Home />} />
+      <Route path="/all-users" element={<AdminPage />} />
+      <Route path="/change-password" element={<ChangePassword />} />
     </Routes>
+    </>
+    
   );
 }
 

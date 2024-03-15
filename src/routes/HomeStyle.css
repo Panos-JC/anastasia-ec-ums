@@ -34,6 +34,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 72px;
 }
 
 .home-form {
@@ -50,8 +51,15 @@
   font-weight: bolder;
 }
 
+.home-form p {
+  text-align: center;
+  margin-top: 0 !important;
+  /* font-weight: bolder; */
+  margin-top: 1rem;
+}
+
 .home-logo {
-  max-width: 180px;
+  max-width: 140px;
   margin: auto;
 }
 
@@ -60,24 +68,6 @@
   max-width: 600px;
   font-size: 1rem;
   font-weight: bolder;
-}
-
-.home-form input,
-textarea {
-  margin-bottom: 0.8rem;
-  padding: 0.6rem 1rem;
-  font-size: 1rem;
-  font-family: "Raleway", "Nirmala UI", serif;
-  background-color: rgb(240, 240, 240, 0.5);
-  border: 2px solid #4c2580;
-  outline: none;
-  border-radius: 22px;
-  color: #000;
-}
-
-.home-form input:disabled {
-  cursor: not-allowed;
-  color: gray;
 }
 
 .home-form input,
@@ -92,30 +82,5 @@ textarea:focus {
 }
 
 .btn-home {
-  transition: 0.2s;
-  padding: 12px 32px;
-  font-size: 1.1em;
-  font-weight: bolder;
-  background: #4c2580;
-  color: #fff;
-  border: 1px;
-  cursor: pointer;
-  border-radius: 25px;
-  margin-top: 1rem;
-  width: 120px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.btn-home:hover {
-  transition: 0.2s;
-  background: rgba(220, 133, 74, 0.5);
-  color: #4c2580;
-}
-
-.btn-home:disabled {
-  transition: 0.2s;
-  background: rgba(178, 178, 182, 0.5);
-  cursor: not-allowed;
-  color: #fff;
+  width: 120px !important;
 }

@@ -1,7 +1,10 @@
 import loginImage from "../images/home-back.jpg";
-import "./HomeStyle.css";
 import Logo from "../images/logo.png";
+import { editUserWithId, getUserByNamePassword } from "../services/users";
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { ButtonComponent, InputComponent } from "../components";
+import "./HomeStyle.css";
 
 const Home = () => {
   const [userData, setUserData] = useState({
@@ -17,10 +20,7 @@ const Home = () => {
   const savedUsername = localStorage.getItem("username");
 
   // Inputs
-  const [passInput, setPassInput] = useState("");
   const [passConfInput, setPassConfInput] = useState("");
-  const [nameInput, setNameInput] = useState("");
-  const [ageInput, setAgeInput] = useState(0);
   const [backup, setBackup] = useState({
     id: "",
     username: "",
@@ -30,31 +30,12 @@ const Home = () => {
     role: "",
   });
 
-  // Retrieve user data from API
+  // Retrieve user with saved username and password from API
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(
-        "https://655b7080ab37729791a91da3.mockapi.io/users/users"
-      );
-      const user = await response.json();
-
-      // Find logged in user from saved credentials
-      setUserData(
-        user.find(
-          (user) =>
-            user.username === savedUsername && user.password === savedPassword
-        )
-      );
-
-      // console.log(userData);
-      setBackup(
-        user.find(
-          (user) =>
-            user.username === savedUsername && user.password === savedPassword
-        )
-      );
-
-      console.log(userData);
+      const user = await getUserByNamePassword(savedUsername, savedPassword);
+      setUserData(user);
+      setBackup(user);
     };
 
     fetchData();
@@ -80,7 +61,6 @@ const Home = () => {
 
   // Input changes
   const handlePassInputChange = (e) => {
-    setPassInput(e.target.value);
     setUserData({ ...userData, password: e.target.value });
   };
 
@@ -89,33 +69,39 @@ const Home = () => {
   };
 
   const handleNameInputChange = (e) => {
-    setNameInput(e.target.value);
     setUserData({ ...userData, fullName: e.target.value });
   };
 
   const handleAgeInputChange = (e) => {
-    setAgeInput(e.target.value);
     setUserData({ ...userData, age: e.target.value });
   };
 
   // Handle save button
   const handleSave = async (e) => {
-    console.log(userData);
-    // if (userData.password !== passConfInput) {
-    //   alert("Password is not the same!");
-    // } else {
-    const response = await fetch(
-      "https://655b7080ab37729791a91da3.mockapi.io/users/users/" + userData.id,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
+    // Prevent default form submission
+    e.preventDefault();
+
+    // Make sure that password and confirm password fields match
+    if (userData.password != passConfInput) {
+      alert("Password and confirm password fields must match!");
+    } else {
+      // Edit user info
+      const response = await editUserWithId(userData.id, userData);
+
+      if (response.ok) {
+        // Store username password in local storage (just in case one of them has changed)
+        localStorage.setItem("username", userData.username);
+        localStorage.setItem("password", userData.password);
+
+        // Change data inside form
+        setBackup(userData);
+
+        // 'Reset' form
+        setEditable(null);
+      } else {
+        alert("Failed to save info.");
       }
-    );
-    setEditable(editable);
-    // }
+    }
   };
 
   return (
@@ -130,81 +116,85 @@ const Home = () => {
 
           <h3>Account Information</h3>
 
-          <label>Username</label>
-          <input
-            type="text"
-            name="username"
+          <InputComponent
+            type={"text"}
+            name={"username"}
             value={userData.username}
             disabled={true}
-            required
+            label={"Username"}
           />
 
-          <label>Password</label>
-          <input
-            type="password"
-            name="password"
+          <InputComponent
+            type={"password"}
+            name={"password"}
             value={userData.password}
             disabled={!editable}
             onChange={handlePassInputChange}
-            required
+            label={"Password"}
           />
 
-          {editable ? (
+          {editable && (
             <>
-              <label>Confirm Password</label>
-              <input
-                type="password"
-                name="conf-password"
+              <InputComponent
+                type={"password"}
+                name={"conf-password"}
                 disabled={!editable}
                 onChange={handleConfPassInputChange}
-                required
+                label={"Confirm Password"}
               />
             </>
-          ) : (
-            ""
           )}
 
-          <label>Fullname</label>
-          <input
-            type="text"
-            name="fullname"
+          <InputComponent
+            type={"text"}
+            name={"fullname"}
             value={userData.fullName}
             disabled={!editable}
             onChange={handleNameInputChange}
-            required
+            label={"Fullname"}
           />
 
-          <label>Age</label>
-          <input
-            type="number"
-            name="age"
+          <InputComponent
+            type={"number"}
+            name={"age"}
             value={userData.age}
             disabled={!editable}
             onChange={handleAgeInputChange}
-            required
+            label={"Age"}
           />
 
-          <label>Role</label>
-          <input
-            type="text"
-            name="role"
+          <InputComponent
+            type={"text"}
+            name={"role"}
             value={userData.role}
             disabled={true}
-            required
+            label={"Role"}
           />
 
           <div className="btns">
-            <button className="btn-home" onClick={handleEditCancel}>
-              {editable ? "Cancel" : "Edit"}
-            </button>
-            <button
-              className="btn-home"
+            <ButtonComponent
+              className={"btn-home"}
+              onClick={handleEditCancel}
+              name={editable ? "Cancel" : "Edit"}
+            />
+
+            <ButtonComponent
+              className={"btn-home"}
               disabled={!editable}
               onClick={handleSave}
-            >
-              Save
-            </button>
+              name={"Save"}
+            />
           </div>
+          {userData.username === "admin" && (
+            <p>
+              Don't want to change your info? <br />
+              Go to{" "}
+              <u>
+                <Link to="/all-users">users administration</Link>
+              </u>{" "}
+              page
+            </p>
+          )}
         </form>
       </div>
     </div>

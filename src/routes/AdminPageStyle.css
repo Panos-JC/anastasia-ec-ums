@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope&display=swap");
+
+* {
+  font-family: "Manrope", serif;
+}
+.admin-logo {
+  max-width: 150px;
+  margin: 0 !important;
+}
+
+.admin-cont {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.admin-cont h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  text-align: center;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: rgb(123, 94, 161, 0.1);
+}
+
+.pagination-settings {
+  margin-top: 1rem;
+  width: 45%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.dropdowns {
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-buttons {
+  width: 230px;
+  justify-content: space-between;
+  display: flex;
+}
+
+.table-cont {
+  max-height: 500px;
+  overflow-y: scroll;
+}
+
+.edit-btn,
+.delete-btn,
+.nav-buttons button {
+  font-size: initial;
+  width: initial;
+  padding: initial;
+  border-radius: initial;
+  margin: initial;
+  background-color: initial;
+  color: initial;
+}
+
+.table-cont input {
+  width: initial;
+  border-radius: initial;
+  font-size: initial;
+  padding: initial;
+  border: 0.2px solid black;
+  text-align: center;
+  margin: 0.1 rem;
+}
+
+.error-msg {
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+}
