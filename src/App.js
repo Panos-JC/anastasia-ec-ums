@@ -53,17 +53,16 @@ function App() {
 
   return (
     <>
-    <NavbarComponent/>
-    <Routes>
-      <Route index element={<Login />} />
-      <Route path="/login" element={<Login />} /> :
-      <Route path="/signup" element={<Signup />} /> :
-      <Route path="/home" element={<Home />} />
-      <Route path="/all-users" element={<AdminPage />} />
-      <Route path="/change-password" element={<ChangePassword />} />
-    </Routes>
+      <NavbarComponent />
+      <Routes>
+        <Route index element={<Login />} />
+        <Route path="/login" element={<Login />} /> :
+        <Route path="/signup" element={<Signup />} /> :
+        <Route path="/home" element={<Home />} />
+        <Route path="/all-users" element={<AdminPage />} />
+        <Route path="/change-password" element={<ChangePassword />} />
+      </Routes>
     </>
-    
   );
 }
 
