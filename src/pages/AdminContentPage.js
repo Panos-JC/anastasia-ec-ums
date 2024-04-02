@@ -7,6 +7,12 @@ import {
 import { useState, useEffect } from "react";
 import Logo from "../images/logo.png";
 import { ButtonComponent, InputComponent } from "../components";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  setCurrentPage,
+  setRecordsPerPage,
+  setTotalPages,
+} from "../paginationSlice";
 
 const AdminContentPage = () => {
   const savedUsername = localStorage.getItem("username");
@@ -14,40 +20,45 @@ const AdminContentPage = () => {
   // Data from API
   const [users, setUsers] = useState([]);
 
-  // Pagination
-  const [currentPage, setCurrentPage] = useState(1);
-  const [recordsPerPage, setRecordsPerPage] = useState(10);
-  const [totalPages, setTotalPages] = useState(1);
+  // Pagination with redux
+  const dispatch = useDispatch();
+  const currentPage = useSelector((state) => state.pagination.currentPage);
+  const recordsPerPage = useSelector(
+    (state) => state.pagination.recordsPerPage
+  );
+  const totalPages = useSelector((state) => state.pagination.totalPages);
+  //-------------------------------------------------------------------
+
   const recordsOptions = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 
   // Keep records per page
   const handleRecordOptions = (e) => {
-    setRecordsPerPage(e.target.value);
+    dispatch(setRecordsPerPage(e.target.value));
   };
 
   // Keep current page number
   const handlePageChange = (e) => {
-    setCurrentPage(e.target.value);
+    dispatch(setCurrentPage(e.target.value));
   };
 
   // Go to next page
   const handleNextPage = () => {
-    setCurrentPage(currentPage + 1);
+    dispatch(setCurrentPage(currentPage + 1));
   };
 
   // Go to previous page
   const handlePrevPage = () => {
-    setCurrentPage(currentPage - 1);
+    dispatch(setCurrentPage(currentPage - 1));
   };
 
   // Go to first page
   const handleFirstPage = () => {
-    setCurrentPage(1);
+    dispatch(setCurrentPage(1));
   };
 
   // Go to last page
   const handleLastPage = () => {
-    setCurrentPage(totalPages);
+    dispatch(setCurrentPage(totalPages));
   };
 
   // Keep id and data of editing user
@@ -71,10 +82,10 @@ const AdminContentPage = () => {
       // Find total pages
       if (users.length % recordsPerPage === 0) {
         // If remaining is zero pages are the result of the division
-        setTotalPages(parseInt(users.length / recordsPerPage));
+        dispatch(setTotalPages(parseInt(users.length / recordsPerPage)));
       } else {
         // If remaining is not zero we need one more extra page
-        setTotalPages(parseInt(users.length / recordsPerPage) + 1);
+        dispatch(setTotalPages(parseInt(users.length / recordsPerPage) + 1));
       }
     };
 
