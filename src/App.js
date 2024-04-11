@@ -53,7 +53,7 @@ function App() {
 
   return (
     <>
-      <NavbarComponent />
+      {/* <NavbarComponent /> */}
       <Routes>
         <Route index element={<Login />} />
         <Route path="/login" element={<Login />} /> :

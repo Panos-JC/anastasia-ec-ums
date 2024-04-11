@@ -1,7 +1,12 @@
 import ChangePassPage from "../pages/ChangePassPage";
+import Layout from "../layouts/Layout";
 
 const ChangePassword = () => {
-  return <ChangePassPage />;
+  return (
+    <Layout>
+      <ChangePassPage />
+    </Layout>
+  );
 };
 
 export default ChangePassword;

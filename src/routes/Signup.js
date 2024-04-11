@@ -1,7 +1,12 @@
 import SignUpPage from "../pages/SignUpPage";
+import Layout from "../layouts/Layout";
 
 const Signup = () => {
-  return <SignUpPage />;
+  return (
+    <Layout>
+      <SignUpPage />
+    </Layout>
+  );
 };
 
 export default Signup;
